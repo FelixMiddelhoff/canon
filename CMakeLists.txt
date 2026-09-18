@@ -29,15 +29,17 @@ set(CANON_SOURCES
   src/c_api.cpp
 )
 
-# Vendored CORE-MATH (MIT) correctly-rounded implementations — sin/cos/exp
-# only for now. log/pow are NOT vendored yet: upstream's accurate fallback
-# path needs __int128, which MSVC's cl.exe has no equivalent for, and canon
-# targets MSVC in its CI matrix without exception. Those two functions stay
-# on the <cmath> placeholder (src/scalar.cpp) until that gap is solved.
+# Vendored CORE-MATH (MIT) correctly-rounded implementations. All five
+# use GNU C extensions (__attribute__, __builtin_*, inline asm); log/pow
+# additionally need __int128 for their accurate fallback path. Neither is
+# available in cl.exe, hence the Windows CI leg uses clang-cl (see
+# .github/workflows/ci.yml) rather than dropping MSVC support.
 set(CANON_VENDOR_SOURCES
   third_party/core-math/sin/sin.c
   third_party/core-math/cos/cos.c
   third_party/core-math/exp/exp.c
+  third_party/core-math/log/log.c
+  third_party/core-math/pow/pow.c
 )
 add_library(canon_vendor OBJECT ${CANON_VENDOR_SOURCES})
 set_target_properties(canon_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)

@@ -26,22 +26,17 @@ double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
 
 ## Status — read this before relying on the bit-exactness claim
 
-`canon::sin`, `canon::cos`, `canon::exp`, and `canon::sqrt` are real,
-correctly-rounded, bit-exact today. sin/cos/exp are vendored from the
+`canon::sin`, `canon::cos`, `canon::exp`, `canon::log`, `canon::pow`, and
+`canon::sqrt` are all real, correctly-rounded, bit-exact implementations
+today — not a `<cmath>` wrapper. sin/cos/exp/log/pow are vendored from the
 [CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT license,
 see `third_party/core-math/`); sqrt is bit-exact for free since IEEE754
 mandates correctly-rounded hardware sqrt.
 
-**`canon::log` and `canon::pow` are still a `<cmath>` wrapper** — exactly
-the platform-divergent behavior canon exists to replace. They're not
-vendored yet: upstream CORE-MATH's log/pow need `__int128` for their
-accurate fallback path, and canon's CI matrix builds all three of
-GCC/Clang/clang-cl, so that gap needs a real answer before those two land.
-
 The CI matrix (`.github/workflows/ci.yml`) runs a bit-exact digest job
-across x86-64/ARM64 × GCC/Clang/clang-cl on every push — informational for
-now while log/pow aren't real yet, it becomes a hard pass/fail gate once
-they are.
+across x86-64/ARM64 × GCC/Clang/clang-cl on every push and **fails the
+build if any leg's output differs from any other's** — this is the actual
+product claim being enforced, not just checked informationally.
 
 Windows builds use clang-cl, not cl.exe: the vendored CORE-MATH sources
 (`third_party/core-math/`) use GNU C extensions (`__attribute__`,

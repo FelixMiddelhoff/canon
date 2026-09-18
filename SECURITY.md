@@ -43,9 +43,8 @@ no dependencies. Realistic concerns:
   between trusted nodes running the same binary — never use it where an
   adversary could construct a colliding input (integrity/signing use cases
   need a real cryptographic hash instead).
-- `canon::log` and `canon::pow` are still the `<cmath>` placeholder (see
-  README's Status section); until they're replaced, canon's bit-exactness
-  guarantee does **not** yet hold across platforms for those two functions
-  — treat pre-1.0 versions as "reproducible on one machine, not yet proven
-  identical across all targets" and check the CI bit-exact digest job
-  before relying on it.
+- The bit-exactness claim is enforced by CI (`.github/workflows/ci.yml`'s
+  `bitexact-verify` job fails the build on any cross-leg digest mismatch),
+  not just asserted in prose — but it still only covers the six functions
+  in `tests/test_bitexact_golden.cpp` on the exact matrix legs CI runs.
+  A platform/compiler/flag combination outside that matrix is unverified.

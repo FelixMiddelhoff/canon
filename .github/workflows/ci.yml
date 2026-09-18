@@ -71,12 +71,12 @@ jobs:
         run: cmake --build build --config ${{ matrix.config }}
       - name: Test
         run: ctest --test-dir build -C ${{ matrix.config }} --output-on-failure
-      - name: Cross-platform bit-exact digest (informational)
-        # Not a pass/fail gate yet — scalar.cpp is still the <cmath>
-        # placeholder (src/scalar.cpp), which is NOT guaranteed bit-exact
-        # across these legs. This step exists so that gap is visible in
-        # every run's log, and flips into a real diff-and-fail gate the
-        # moment the correctly-rounded implementation lands.
+      - name: Capture bit-exact digest
+        # scalar.cpp is now the real correctly-rounded implementation for
+        # every function (all five vendored from CORE-MATH, plus hardware
+        # sqrt) — this is the actual product claim, so it's a hard gate:
+        # the bitexact-verify job below fails the run if any leg's digest
+        # differs from any other's.
         shell: bash
         run: |
           BIN=""
@@ -85,7 +85,40 @@ jobs:
                    "build/tests/${{ matrix.config }}/test_bitexact_golden.exe"; do
             if [ -f "$c" ]; then BIN="$c"; break; fi
           done
-          "$BIN" || true
+          "$BIN" > digest.txt
+          cat digest.txt
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.cc }}-${{ matrix.config }}
+          path: digest.txt
+
+  bitexact-verify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all digests
+        uses: actions/download-artifact@v4
+        with:
+          pattern: digest-*
+          path: digests
+      - name: Diff every leg's digest against the first
+        shell: bash
+        run: |
+          cd digests
+          first="$(ls -1 | head -1)"
+          echo "Reference leg: $first"
+          cat "$first/digest.txt"
+          status=0
+          for d in */; do
+            d="${d%/}"
+            if [ "$d" = "$first" ]; then continue; fi
+            if ! diff -u "$first/digest.txt" "$d/digest.txt"; then
+              echo "::error::bit-exact mismatch: $d differs from $first"
+              status=1
+            fi
+          done
+          exit $status
 
   sanitizers:
     runs-on: ubuntu-latest
