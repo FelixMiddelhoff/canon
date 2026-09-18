@@ -105,22 +105,22 @@ not a separate `sinf/` directory):
 - [x] `cbrtf`
 - [x] `coshf`
 - [ ] `cospif`
-- [ ] `erff`
+- [x] `erff`
 - [ ] `erfcf`
-- [ ] `exp10f`
+- [x] `exp10f`
 - [ ] `exp10m1f`
-- [ ] `exp2f`
+- [x] `exp2f`
 - [ ] `exp2m1f`
 - [x] `expm1f`
 - [x] `hypotf`
 - [ ] `lgammaf`
-- [ ] `log10f`
+- [x] `log10f`
 - [ ] `log10p1f`
 - [x] `log1pf`
-- [ ] `log2f`
+- [x] `log2f`
 - [ ] `log2p1f`
-- [ ] `rsqrtf`
-- [ ] `sincosf`
+- [x] `rsqrtf`
+- [x] `sincosf`
 - [x] `sinhf`
 - [ ] `sinpif`
 - [x] `tanf`

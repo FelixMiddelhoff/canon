@@ -88,4 +88,12 @@ float hypotf(float x, float y);
 float expm1f(float x);
 float log1pf(float x);
 
+float log2f(float x);
+float log10f(float x);
+float exp2f(float x);
+float exp10f(float x);
+void sincosf(float x, float* s, float* c);
+float rsqrtf(float x);
+float erff(float x);
+
 }  // namespace canon

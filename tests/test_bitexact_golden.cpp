@@ -104,6 +104,19 @@ int main() {
   print_bits32("expm1f(1.0)", canon::expm1f(1.0f));
   print_bits32("log1pf(1.0)", canon::log1pf(1.0f));
 
+  print_bits32("log2f(3.0)", canon::log2f(3.0f));
+  print_bits32("log10f(3.0)", canon::log10f(3.0f));
+  print_bits32("exp2f(1.5)", canon::exp2f(1.5f));
+  print_bits32("exp10f(1.5)", canon::exp10f(1.5f));
+  {
+    float s, c;
+    canon::sincosf(1.0f, &s, &c);
+    print_bits32("sincosf(1.0).s", s);
+    print_bits32("sincosf(1.0).c", c);
+  }
+  print_bits32("rsqrtf(2.0)", canon::rsqrtf(2.0f));
+  print_bits32("erff(1.0)", canon::erff(1.0f));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is

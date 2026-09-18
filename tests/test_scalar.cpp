@@ -78,6 +78,19 @@ int main() {
   assert(canon::expm1f(0.0f) == 0.0f);
   assert(canon::log1pf(0.0f) == 0.0f);
 
+  assert(canon::log2f(8.0f) == 3.0f);
+  assert(canon::log10f(1000.0f) == 3.0f);
+  assert(canon::exp2f(3.0f) == 8.0f);
+  assert(canon::exp10f(3.0f) == 1000.0f);
+  {
+    float s, c;
+    canon::sincosf(0.0f, &s, &c);
+    assert(s == 0.0f);
+    assert(c == 1.0f);
+  }
+  assert(canon::rsqrtf(4.0f) == 0.5f);
+  assert(canon::erff(0.0f) == 0.0f);
+
   std::puts("test_scalar: ok");
   return 0;
 }

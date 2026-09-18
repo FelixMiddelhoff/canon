@@ -93,6 +93,14 @@ CANON_API float canon_hypotf(float x, float y);
 CANON_API float canon_expm1f(float x);
 CANON_API float canon_log1pf(float x);
 
+CANON_API float canon_log2f(float x);
+CANON_API float canon_log10f(float x);
+CANON_API float canon_exp2f(float x);
+CANON_API float canon_exp10f(float x);
+CANON_API void canon_sincosf(float x, float* s, float* c);
+CANON_API float canon_rsqrtf(float x);
+CANON_API float canon_erff(float x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

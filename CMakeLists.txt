@@ -1,7 +1,7 @@
 # canon — cross-platform bit-exact math library.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.20)
-project(canon LANGUAGES C CXX VERSION 0.10.0)
+project(canon LANGUAGES C CXX VERSION 0.11.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -96,6 +96,13 @@ set(CANON_VENDOR_SOURCES
   third_party/core-math/hypotf/hypotf.c
   third_party/core-math/expm1f/expm1f.c
   third_party/core-math/log1pf/log1pf.c
+  third_party/core-math/log2f/log2f.c
+  third_party/core-math/log10f/log10f.c
+  third_party/core-math/exp2f/exp2f.c
+  third_party/core-math/exp10f/exp10f.c
+  third_party/core-math/sincosf/sincosf.c
+  third_party/core-math/rsqrtf/rsqrtf.c
+  third_party/core-math/erff/erff.c
 )
 add_library(canon_vendor OBJECT ${CANON_VENDOR_SOURCES})
 set_target_properties(canon_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)
