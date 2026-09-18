@@ -52,6 +52,7 @@ int main() {
   assert(canon::exp2m1(0.0) == 0.0);
   assert(canon::exp10m1(0.0) == 0.0);
   assert(canon::log2p1(0.0) == 0.0);
+  assert(canon::log10p1(0.0) == 0.0);
 
   std::puts("test_scalar: ok");
   return 0;

@@ -72,6 +72,7 @@ int main() {
   print_bits("exp2m1(1.5)", canon::exp2m1(1.5));
   print_bits("exp10m1(1.5)", canon::exp10m1(1.5));
   print_bits("log2p1(1.0)", canon::log2p1(1.0));
+  print_bits("log10p1(9.0)", canon::log10p1(9.0));
 
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently

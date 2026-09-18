@@ -53,6 +53,7 @@ double cr_atan2pi(double y, double x);
 double cr_exp2m1(double x);
 double cr_exp10m1(double x);
 double cr_log2p1(double x);
+double cr_log10p1(double x);
 }
 
 namespace canon {
@@ -103,5 +104,6 @@ double atan2pi(double y, double x) { return cr_atan2pi(y, x); }
 double exp2m1(double x) { return cr_exp2m1(x); }
 double exp10m1(double x) { return cr_exp10m1(x); }
 double log2p1(double x) { return cr_log2p1(x); }
+double log10p1(double x) { return cr_log10p1(x); }
 
 }  // namespace canon

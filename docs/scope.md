@@ -62,7 +62,7 @@ Source of truth for what exists upstream: CORE-MATH's
 - [x] `hypot`
 - [x] `lgamma`
 - [x] `log10`
-- [ ] `log10p1`
+- [x] `log10p1`
 - [x] `log1p`
 - [x] `log2`
 - [x] `log2p1`

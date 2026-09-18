@@ -52,6 +52,7 @@ double canon_atan2pi(double y, double x) { return canon::atan2pi(y, x); }
 double canon_exp2m1(double x) { return canon::exp2m1(x); }
 double canon_exp10m1(double x) { return canon::exp10m1(x); }
 double canon_log2p1(double x) { return canon::log2p1(x); }
+double canon_log10p1(double x) { return canon::log10p1(x); }
 
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
