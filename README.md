@@ -35,12 +35,14 @@ double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
 `canon::rsqrt`, `canon::erf`, `canon::erfc`, `canon::lgamma`,
 `canon::tgamma`, `canon::sinpi`, `canon::cospi`, `canon::tanpi`,
 `canon::asinpi`, `canon::acospi`, `canon::atanpi`, `canon::atan2pi`,
-`canon::exp2m1`, `canon::exp10m1`, `canon::log2p1`, and `canon::log10p1`
-are all real, correctly-rounded, bit-exact implementations today — not a
-`<cmath>` wrapper. All but sqrt are vendored from the
+`canon::exp2m1`, `canon::exp10m1`, `canon::log2p1`, `canon::log10p1`, and
+(single precision) `canon::sinf`, `canon::cosf`, `canon::sqrtf`,
+`canon::expf`, `canon::logf`, `canon::powf`, `canon::tanf` are all real,
+correctly-rounded, bit-exact implementations today — not a `<cmath>`
+wrapper. All but sqrt/sqrtf are vendored from the
 [CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT license,
-see `third_party/core-math/`); sqrt is bit-exact for free since IEEE754
-mandates correctly-rounded hardware sqrt.
+see `third_party/core-math/`); sqrt/sqrtf are bit-exact for free since
+IEEE754 mandates correctly-rounded hardware sqrt at both precisions.
 
 The CI matrix (`.github/workflows/ci.yml`) runs a bit-exact digest job
 across x86-64/ARM64 × GCC/Clang/clang-cl on every push and **fails the
@@ -60,10 +62,11 @@ added seven more** (`log1p`/`log2`/`log10`/`exp2`/`exp10`/`sincos`/
 `rsqrt`); **v0.5 added seven more** (`erf`/`erfc`/`lgamma`/`tgamma`/
 `sinpi`/`cospi`/`tanpi`); **v0.6 added seven more**
 (`asinpi`/`acospi`/`atanpi`/`atan2pi`/`exp2m1`/`exp10m1`/`log2p1`); **v0.7
-adds `log10p1`**, closing out double precision entirely — 42 functions
-real. v1 (single precision, 42 more functions) starts next. v1 is the
-full function-by-function target list, with no exceptions carved out
-ahead of time: see [docs/scope.md](docs/scope.md).
+added `log10p1`**, closing out double precision entirely — 42 functions
+real; **v0.8 starts single precision** with `sinf`/`cosf`/`sqrtf`/
+`expf`/`logf`/`powf`/`tanf` (49 functions real). v1 is the full
+function-by-function target list, with no exceptions carved out ahead of
+time: see [docs/scope.md](docs/scope.md).
 
 ## Building
 

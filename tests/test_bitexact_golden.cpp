@@ -19,6 +19,12 @@ void print_bits(const char* label, double v) {
   std::printf("%s: %016llx\n", label, static_cast<unsigned long long>(bits));
 }
 
+void print_bits32(const char* label, float v) {
+  std::uint32_t bits;
+  std::memcpy(&bits, &v, sizeof(bits));
+  std::printf("%s: %08x\n", label, bits);
+}
+
 }  // namespace
 
 int main() {
@@ -73,6 +79,14 @@ int main() {
   print_bits("exp10m1(1.5)", canon::exp10m1(1.5));
   print_bits("log2p1(1.0)", canon::log2p1(1.0));
   print_bits("log10p1(9.0)", canon::log10p1(9.0));
+
+  print_bits32("sinf(1.0)", canon::sinf(1.0f));
+  print_bits32("cosf(1.0)", canon::cosf(1.0f));
+  print_bits32("sqrtf(2.0)", canon::sqrtf(2.0f));
+  print_bits32("expf(1.0)", canon::expf(1.0f));
+  print_bits32("logf(2.0)", canon::logf(2.0f));
+  print_bits32("powf(1.0001,20.0)", canon::powf(1.0001f, 20.0f));
+  print_bits32("tanf(1.0)", canon::tanf(1.0f));
 
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently

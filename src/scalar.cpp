@@ -54,6 +54,12 @@ double cr_exp2m1(double x);
 double cr_exp10m1(double x);
 double cr_log2p1(double x);
 double cr_log10p1(double x);
+float cr_sinf(float x);
+float cr_cosf(float x);
+float cr_expf(float x);
+float cr_logf(float x);
+float cr_powf(float base, float exponent);
+float cr_tanf(float x);
 }
 
 namespace canon {
@@ -105,5 +111,13 @@ double exp2m1(double x) { return cr_exp2m1(x); }
 double exp10m1(double x) { return cr_exp10m1(x); }
 double log2p1(double x) { return cr_log2p1(x); }
 double log10p1(double x) { return cr_log10p1(x); }
+
+float sinf(float x) { return cr_sinf(x); }
+float cosf(float x) { return cr_cosf(x); }
+float sqrtf(float x) { return std::sqrt(x); }
+float expf(float x) { return cr_expf(x); }
+float logf(float x) { return cr_logf(x); }
+float powf(float base, float exponent) { return cr_powf(base, exponent); }
+float tanf(float x) { return cr_tanf(x); }
 
 }  // namespace canon

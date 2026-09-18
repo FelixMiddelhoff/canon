@@ -54,6 +54,14 @@ double canon_exp10m1(double x) { return canon::exp10m1(x); }
 double canon_log2p1(double x) { return canon::log2p1(x); }
 double canon_log10p1(double x) { return canon::log10p1(x); }
 
+float canon_sinf(float x) { return canon::sinf(x); }
+float canon_cosf(float x) { return canon::cosf(x); }
+float canon_sqrtf(float x) { return canon::sqrtf(x); }
+float canon_expf(float x) { return canon::expf(x); }
+float canon_logf(float x) { return canon::logf(x); }
+float canon_powf(float base, float exponent) { return canon::powf(base, exponent); }
+float canon_tanf(float x) { return canon::tanf(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

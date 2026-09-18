@@ -54,6 +54,14 @@ int main() {
   assert(canon::log2p1(0.0) == 0.0);
   assert(canon::log10p1(0.0) == 0.0);
 
+  assert(canon::sinf(0.0f) == 0.0f);
+  assert(canon::cosf(0.0f) == 1.0f);
+  assert(canon::sqrtf(4.0f) == 2.0f);
+  assert(canon::expf(0.0f) == 1.0f);
+  assert(canon::logf(1.0f) == 0.0f);
+  assert(canon::powf(2.0f, 10.0f) == 1024.0f);
+  assert(canon::tanf(0.0f) == 0.0f);
+
   std::puts("test_scalar: ok");
   return 0;
 }

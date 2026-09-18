@@ -69,6 +69,14 @@ CANON_API double canon_exp10m1(double x);
 CANON_API double canon_log2p1(double x);
 CANON_API double canon_log10p1(double x);
 
+CANON_API float canon_sinf(float x);
+CANON_API float canon_cosf(float x);
+CANON_API float canon_sqrtf(float x);
+CANON_API float canon_expf(float x);
+CANON_API float canon_logf(float x);
+CANON_API float canon_powf(float base, float exponent);
+CANON_API float canon_tanf(float x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

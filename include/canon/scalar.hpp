@@ -60,4 +60,16 @@ double exp10m1(double x);
 double log2p1(double x);
 double log10p1(double x);
 
+// Single precision (binary32). Named with the libm `f` suffix (sinf, cosf,
+// ...) rather than overloaded on the double-precision names above, matching
+// both CORE-MATH's own src/binary32/ naming and the C ABI's inability to
+// overload (canon_sin vs canon_sinf).
+float sinf(float x);
+float cosf(float x);
+float sqrtf(float x);
+float expf(float x);
+float logf(float x);
+float powf(float base, float exponent);
+float tanf(float x);
+
 }  // namespace canon

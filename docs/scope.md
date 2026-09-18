@@ -75,12 +75,58 @@ Source of truth for what exists upstream: CORE-MATH's
 - [x] `tanpi`
 - [x] `tgamma`
 
-### Single precision (`binary32`) — every v0.1 + above function
+### Single precision (`binary32`) — every v0.1 + above function, `f` suffix
 
-- [ ] `sinf`, `cosf`, `sqrtf`, `expf`, `logf`, `powf` (the v0.1 six, f32)
-- [ ] `f32` counterpart of every function in the double-precision list
-      above (same names, `f` suffix, matching CORE-MATH's
-      `src/binary32/` layout)
+v0.1's six, f32:
+
+- [x] `sinf`
+- [x] `cosf`
+- [x] `sqrtf` (bit-exact via hardware, no vendoring — same as `sqrt`)
+- [x] `expf`
+- [x] `logf`
+- [x] `powf`
+
+f32 counterpart of every remaining double-precision function above (same
+names, `f` suffix, matching CORE-MATH's `src/binary32/` layout — note the
+upstream directory names match the f64 ones, e.g. `src/binary32/sin/sinf.c`,
+not a separate `sinf/` directory):
+
+- [ ] `acosf`
+- [ ] `acoshf`
+- [ ] `acospif`
+- [ ] `asinf`
+- [ ] `asinhf`
+- [ ] `asinpif`
+- [ ] `atanf`
+- [ ] `atan2f`
+- [ ] `atan2pif`
+- [ ] `atanhf`
+- [ ] `atanpif`
+- [ ] `cbrtf`
+- [ ] `coshf`
+- [ ] `cospif`
+- [ ] `erff`
+- [ ] `erfcf`
+- [ ] `exp10f`
+- [ ] `exp10m1f`
+- [ ] `exp2f`
+- [ ] `exp2m1f`
+- [ ] `expm1f`
+- [ ] `hypotf`
+- [ ] `lgammaf`
+- [ ] `log10f`
+- [ ] `log10p1f`
+- [ ] `log1pf`
+- [ ] `log2f`
+- [ ] `log2p1f`
+- [ ] `rsqrtf`
+- [ ] `sincosf`
+- [ ] `sinhf`
+- [ ] `sinpif`
+- [x] `tanf`
+- [ ] `tanhf`
+- [ ] `tanpif`
+- [ ] `tgammaf`
 
 ## Process for each new function
 
