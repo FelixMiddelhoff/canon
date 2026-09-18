@@ -70,16 +70,6 @@ jobs:
             cc: clang-cl
             cxx: clang-cl
             config: Debug
-          - os: macos-13
-            arch: x86-64
-            cc: clang
-            cxx: clang++
-            config: Release
-          - os: macos-13
-            arch: x86-64
-            cc: clang
-            cxx: clang++
-            config: Debug
           - os: macos-14
             arch: arm64
             cc: clang
