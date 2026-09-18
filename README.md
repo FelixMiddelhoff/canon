@@ -44,6 +44,10 @@ Windows builds use clang-cl, not cl.exe: the vendored CORE-MATH sources
 clang-cl understands them and stays MSVC-ABI-compatible for linking against
 the rest of the toolchain.
 
+**v0.1 is six double-precision functions.** v1 is the full function-by-
+function target list, with no exceptions carved out ahead of time: see
+[docs/scope.md](docs/scope.md).
+
 ## Building
 
 ```bash
