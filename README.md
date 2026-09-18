@@ -3,6 +3,8 @@
 Cross-platform bit-exact math library. Same input, same bits, every
 platform.
 
+Status: **pre-alpha skeleton**.
+
 ## What this is
 
 glibc, macOS's libm, MSVC's CRT and ARM's libm each implement
