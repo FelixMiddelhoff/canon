@@ -70,6 +70,14 @@ float canon_sinhf(float x) { return canon::sinhf(x); }
 float canon_coshf(float x) { return canon::coshf(x); }
 float canon_tanhf(float x) { return canon::tanhf(x); }
 
+float canon_asinhf(float x) { return canon::asinhf(x); }
+float canon_acoshf(float x) { return canon::acoshf(x); }
+float canon_atanhf(float x) { return canon::atanhf(x); }
+float canon_cbrtf(float x) { return canon::cbrtf(x); }
+float canon_hypotf(float x, float y) { return canon::hypotf(x, y); }
+float canon_expm1f(float x) { return canon::expm1f(x); }
+float canon_log1pf(float x) { return canon::log1pf(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

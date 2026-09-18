@@ -92,17 +92,17 @@ upstream directory names match the f64 ones, e.g. `src/binary32/sin/sinf.c`,
 not a separate `sinf/` directory):
 
 - [x] `acosf`
-- [ ] `acoshf`
+- [x] `acoshf`
 - [ ] `acospif`
 - [x] `asinf`
-- [ ] `asinhf`
+- [x] `asinhf`
 - [ ] `asinpif`
 - [x] `atanf`
 - [x] `atan2f`
 - [ ] `atan2pif`
-- [ ] `atanhf`
+- [x] `atanhf`
 - [ ] `atanpif`
-- [ ] `cbrtf`
+- [x] `cbrtf`
 - [x] `coshf`
 - [ ] `cospif`
 - [ ] `erff`
@@ -111,12 +111,12 @@ not a separate `sinf/` directory):
 - [ ] `exp10m1f`
 - [ ] `exp2f`
 - [ ] `exp2m1f`
-- [ ] `expm1f`
-- [ ] `hypotf`
+- [x] `expm1f`
+- [x] `hypotf`
 - [ ] `lgammaf`
 - [ ] `log10f`
 - [ ] `log10p1f`
-- [ ] `log1pf`
+- [x] `log1pf`
 - [ ] `log2f`
 - [ ] `log2p1f`
 - [ ] `rsqrtf`

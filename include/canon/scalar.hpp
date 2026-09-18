@@ -80,4 +80,12 @@ float sinhf(float x);
 float coshf(float x);
 float tanhf(float x);
 
+float asinhf(float x);
+float acoshf(float x);
+float atanhf(float x);
+float cbrtf(float x);
+float hypotf(float x, float y);
+float expm1f(float x);
+float log1pf(float x);
+
 }  // namespace canon

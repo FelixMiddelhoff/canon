@@ -70,6 +70,14 @@ int main() {
   assert(canon::coshf(0.0f) == 1.0f);
   assert(canon::tanhf(0.0f) == 0.0f);
 
+  assert(canon::asinhf(0.0f) == 0.0f);
+  assert(canon::acoshf(1.0f) == 0.0f);
+  assert(canon::atanhf(0.0f) == 0.0f);
+  assert(canon::cbrtf(8.0f) == 2.0f);
+  assert(canon::hypotf(3.0f, 4.0f) == 5.0f);
+  assert(canon::expm1f(0.0f) == 0.0f);
+  assert(canon::log1pf(0.0f) == 0.0f);
+
   std::puts("test_scalar: ok");
   return 0;
 }
