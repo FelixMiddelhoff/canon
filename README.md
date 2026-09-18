@@ -22,6 +22,11 @@ double a = isobit::sin(x);        // same 64 bits on x86-64, ARM64, any compiler
 double d = isobit::dot(v1, v2, 3); // fixed left-to-right summation order
 ```
 
+See `examples/` for runnable code: scalar math + `dot()`
+(`quickstart.cpp`), `normalize()`/matrix `multiply()`
+(`vecmat.cpp`), cross-node desync detection via `hash_bits()`
+(`hash_determinism.cpp`), and the plain-C ABI (`c_abi.c`).
+
 ## Function coverage
 
 Every function CORE-MATH provides a correctly-rounded implementation
