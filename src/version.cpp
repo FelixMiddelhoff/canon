@@ -2,6 +2,6 @@
 
 namespace canon {
 
-const char* version_string() { return "0.3.0"; }
+const char* version_string() { return "0.4.0"; }
 
 }  // namespace canon

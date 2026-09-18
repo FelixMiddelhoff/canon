@@ -32,6 +32,13 @@ double cr_atanh(double x);
 double cr_cbrt(double x);
 double cr_hypot(double x, double y);
 double cr_expm1(double x);
+double cr_log1p(double x);
+double cr_log2(double x);
+double cr_log10(double x);
+double cr_exp2(double x);
+double cr_exp10(double x);
+void cr_sincos(double x, double* s, double* c);
+double cr_rsqrt(double x);
 }
 
 namespace canon {
@@ -58,5 +65,13 @@ double atanh(double x) { return cr_atanh(x); }
 double cbrt(double x) { return cr_cbrt(x); }
 double hypot(double x, double y) { return cr_hypot(x, y); }
 double expm1(double x) { return cr_expm1(x); }
+
+double log1p(double x) { return cr_log1p(x); }
+double log2(double x) { return cr_log2(x); }
+double log10(double x) { return cr_log10(x); }
+double exp2(double x) { return cr_exp2(x); }
+double exp10(double x) { return cr_exp10(x); }
+void sincos(double x, double* s, double* c) { cr_sincos(x, s, c); }
+double rsqrt(double x) { return cr_rsqrt(x); }
 
 }  // namespace canon

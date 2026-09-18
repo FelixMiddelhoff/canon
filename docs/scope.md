@@ -54,20 +54,20 @@ Source of truth for what exists upstream: CORE-MATH's
 - [ ] `cospi`
 - [ ] `erf`
 - [ ] `erfc`
-- [ ] `exp10`
+- [x] `exp10`
 - [ ] `exp10m1`
-- [ ] `exp2`
+- [x] `exp2`
 - [ ] `exp2m1`
 - [x] `expm1`
 - [x] `hypot`
 - [ ] `lgamma`
-- [ ] `log10`
+- [x] `log10`
 - [ ] `log10p1`
-- [ ] `log1p`
-- [ ] `log2`
+- [x] `log1p`
+- [x] `log2`
 - [ ] `log2p1`
-- [ ] `rsqrt`
-- [ ] `sincos`
+- [x] `rsqrt`
+- [x] `sincos`
 - [x] `sinh`
 - [ ] `sinpi`
 - [x] `tan`

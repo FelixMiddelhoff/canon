@@ -24,6 +24,19 @@ int main() {
   assert(canon::hypot(3.0, 4.0) == 5.0);
   assert(canon::expm1(0.0) == 0.0);
 
+  assert(canon::log1p(0.0) == 0.0);
+  assert(canon::log2(8.0) == 3.0);
+  assert(canon::log10(1000.0) == 3.0);
+  assert(canon::exp2(3.0) == 8.0);
+  assert(canon::exp10(3.0) == 1000.0);
+  {
+    double s, c;
+    canon::sincos(0.0, &s, &c);
+    assert(s == 0.0);
+    assert(c == 1.0);
+  }
+  assert(canon::rsqrt(4.0) == 0.5);
+
   std::puts("test_scalar: ok");
   return 0;
 }

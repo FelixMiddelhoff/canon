@@ -35,4 +35,12 @@ double cbrt(double x);
 double hypot(double x, double y);
 double expm1(double x);
 
+double log1p(double x);
+double log2(double x);
+double log10(double x);
+double exp2(double x);
+double exp10(double x);
+void sincos(double x, double* s, double* c);
+double rsqrt(double x);
+
 }  // namespace canon

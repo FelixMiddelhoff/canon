@@ -44,6 +44,19 @@ int main() {
   print_bits("hypot(3.0,4.0)", canon::hypot(3.0, 4.0));
   print_bits("expm1(1.0)", canon::expm1(1.0));
 
+  print_bits("log1p(1.0)", canon::log1p(1.0));
+  print_bits("log2(3.0)", canon::log2(3.0));
+  print_bits("log10(3.0)", canon::log10(3.0));
+  print_bits("exp2(1.5)", canon::exp2(1.5));
+  print_bits("exp10(1.5)", canon::exp10(1.5));
+  {
+    double s, c;
+    canon::sincos(1.0, &s, &c);
+    print_bits("sincos(1.0).s", s);
+    print_bits("sincos(1.0).c", c);
+  }
+  print_bits("rsqrt(2.0)", canon::rsqrt(2.0));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is

@@ -29,6 +29,14 @@ double canon_cbrt(double x) { return canon::cbrt(x); }
 double canon_hypot(double x, double y) { return canon::hypot(x, y); }
 double canon_expm1(double x) { return canon::expm1(x); }
 
+double canon_log1p(double x) { return canon::log1p(x); }
+double canon_log2(double x) { return canon::log2(x); }
+double canon_log10(double x) { return canon::log10(x); }
+double canon_exp2(double x) { return canon::exp2(x); }
+double canon_exp10(double x) { return canon::exp10(x); }
+void canon_sincos(double x, double* s, double* c) { canon::sincos(x, s, c); }
+double canon_rsqrt(double x) { return canon::rsqrt(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 
