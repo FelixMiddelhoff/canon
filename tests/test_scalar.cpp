@@ -45,6 +45,14 @@ int main() {
   assert(canon::cospi(0.0) == 1.0);
   assert(canon::tanpi(0.0) == 0.0);
 
+  assert(canon::asinpi(0.0) == 0.0);
+  assert(canon::acospi(1.0) == 0.0);
+  assert(canon::atanpi(0.0) == 0.0);
+  assert(canon::atan2pi(0.0, 1.0) == 0.0);
+  assert(canon::exp2m1(0.0) == 0.0);
+  assert(canon::exp10m1(0.0) == 0.0);
+  assert(canon::log2p1(0.0) == 0.0);
+
   std::puts("test_scalar: ok");
   return 0;
 }

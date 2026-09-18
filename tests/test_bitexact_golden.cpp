@@ -65,6 +65,14 @@ int main() {
   print_bits("cospi(0.25)", canon::cospi(0.25));
   print_bits("tanpi(0.25)", canon::tanpi(0.25));
 
+  print_bits("asinpi(0.5)", canon::asinpi(0.5));
+  print_bits("acospi(0.5)", canon::acospi(0.5));
+  print_bits("atanpi(1.0)", canon::atanpi(1.0));
+  print_bits("atan2pi(1.0,2.0)", canon::atan2pi(1.0, 2.0));
+  print_bits("exp2m1(1.5)", canon::exp2m1(1.5));
+  print_bits("exp10m1(1.5)", canon::exp10m1(1.5));
+  print_bits("log2p1(1.0)", canon::log2p1(1.0));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is

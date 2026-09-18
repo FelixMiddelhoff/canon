@@ -60,6 +60,14 @@ CANON_API double canon_sinpi(double x);
 CANON_API double canon_cospi(double x);
 CANON_API double canon_tanpi(double x);
 
+CANON_API double canon_asinpi(double x);
+CANON_API double canon_acospi(double x);
+CANON_API double canon_atanpi(double x);
+CANON_API double canon_atan2pi(double y, double x);
+CANON_API double canon_exp2m1(double x);
+CANON_API double canon_exp10m1(double x);
+CANON_API double canon_log2p1(double x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

@@ -51,4 +51,12 @@ double sinpi(double x);
 double cospi(double x);
 double tanpi(double x);
 
+double asinpi(double x);
+double acospi(double x);
+double atanpi(double x);
+double atan2pi(double y, double x);
+double exp2m1(double x);
+double exp10m1(double x);
+double log2p1(double x);
+
 }  // namespace canon

@@ -46,6 +46,13 @@ double cr_tgamma(double x);
 double cr_sinpi(double x);
 double cr_cospi(double x);
 double cr_tanpi(double x);
+double cr_asinpi(double x);
+double cr_acospi(double x);
+double cr_atanpi(double x);
+double cr_atan2pi(double y, double x);
+double cr_exp2m1(double x);
+double cr_exp10m1(double x);
+double cr_log2p1(double x);
 }
 
 namespace canon {
@@ -88,5 +95,13 @@ double tgamma(double x) { return cr_tgamma(x); }
 double sinpi(double x) { return cr_sinpi(x); }
 double cospi(double x) { return cr_cospi(x); }
 double tanpi(double x) { return cr_tanpi(x); }
+
+double asinpi(double x) { return cr_asinpi(x); }
+double acospi(double x) { return cr_acospi(x); }
+double atanpi(double x) { return cr_atanpi(x); }
+double atan2pi(double y, double x) { return cr_atan2pi(y, x); }
+double exp2m1(double x) { return cr_exp2m1(x); }
+double exp10m1(double x) { return cr_exp10m1(x); }
+double log2p1(double x) { return cr_log2p1(x); }
 
 }  // namespace canon

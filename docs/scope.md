@@ -40,24 +40,24 @@ Source of truth for what exists upstream: CORE-MATH's
 
 - [x] `acos`
 - [x] `acosh`
-- [ ] `acospi`
+- [x] `acospi`
 - [x] `asin`
 - [x] `asinh`
-- [ ] `asinpi`
+- [x] `asinpi`
 - [x] `atan`
 - [x] `atan2`
-- [ ] `atan2pi`
+- [x] `atan2pi`
 - [x] `atanh`
-- [ ] `atanpi`
+- [x] `atanpi`
 - [x] `cbrt`
 - [x] `cosh`
 - [x] `cospi`
 - [x] `erf`
 - [x] `erfc`
 - [x] `exp10`
-- [ ] `exp10m1`
+- [x] `exp10m1`
 - [x] `exp2`
-- [ ] `exp2m1`
+- [x] `exp2m1`
 - [x] `expm1`
 - [x] `hypot`
 - [x] `lgamma`
@@ -65,7 +65,7 @@ Source of truth for what exists upstream: CORE-MATH's
 - [ ] `log10p1`
 - [x] `log1p`
 - [x] `log2`
-- [ ] `log2p1`
+- [x] `log2p1`
 - [x] `rsqrt`
 - [x] `sincos`
 - [x] `sinh`
