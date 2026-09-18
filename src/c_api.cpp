@@ -21,6 +21,14 @@ double canon_atan2(double y, double x) { return canon::atan2(y, x); }
 double canon_sinh(double x) { return canon::sinh(x); }
 double canon_cosh(double x) { return canon::cosh(x); }
 
+double canon_tanh(double x) { return canon::tanh(x); }
+double canon_asinh(double x) { return canon::asinh(x); }
+double canon_acosh(double x) { return canon::acosh(x); }
+double canon_atanh(double x) { return canon::atanh(x); }
+double canon_cbrt(double x) { return canon::cbrt(x); }
+double canon_hypot(double x, double y) { return canon::hypot(x, y); }
+double canon_expm1(double x) { return canon::expm1(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

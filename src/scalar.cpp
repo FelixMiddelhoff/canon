@@ -25,6 +25,13 @@ double cr_atan(double x);
 double cr_atan2(double y, double x);
 double cr_sinh(double x);
 double cr_cosh(double x);
+double cr_tanh(double x);
+double cr_asinh(double x);
+double cr_acosh(double x);
+double cr_atanh(double x);
+double cr_cbrt(double x);
+double cr_hypot(double x, double y);
+double cr_expm1(double x);
 }
 
 namespace canon {
@@ -43,5 +50,13 @@ double atan(double x) { return cr_atan(x); }
 double atan2(double y, double x) { return cr_atan2(y, x); }
 double sinh(double x) { return cr_sinh(x); }
 double cosh(double x) { return cr_cosh(x); }
+
+double tanh(double x) { return cr_tanh(x); }
+double asinh(double x) { return cr_asinh(x); }
+double acosh(double x) { return cr_acosh(x); }
+double atanh(double x) { return cr_atanh(x); }
+double cbrt(double x) { return cr_cbrt(x); }
+double hypot(double x, double y) { return cr_hypot(x, y); }
+double expm1(double x) { return cr_expm1(x); }
 
 }  // namespace canon

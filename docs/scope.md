@@ -39,17 +39,17 @@ Source of truth for what exists upstream: CORE-MATH's
 ### Double precision (`binary64`) — target list
 
 - [x] `acos`
-- [ ] `acosh`
+- [x] `acosh`
 - [ ] `acospi`
 - [x] `asin`
-- [ ] `asinh`
+- [x] `asinh`
 - [ ] `asinpi`
 - [x] `atan`
 - [x] `atan2`
 - [ ] `atan2pi`
-- [ ] `atanh`
+- [x] `atanh`
 - [ ] `atanpi`
-- [ ] `cbrt`
+- [x] `cbrt`
 - [x] `cosh`
 - [ ] `cospi`
 - [ ] `erf`
@@ -58,8 +58,8 @@ Source of truth for what exists upstream: CORE-MATH's
 - [ ] `exp10m1`
 - [ ] `exp2`
 - [ ] `exp2m1`
-- [ ] `expm1`
-- [ ] `hypot`
+- [x] `expm1`
+- [x] `hypot`
 - [ ] `lgamma`
 - [ ] `log10`
 - [ ] `log10p1`
@@ -71,7 +71,7 @@ Source of truth for what exists upstream: CORE-MATH's
 - [x] `sinh`
 - [ ] `sinpi`
 - [x] `tan`
-- [ ] `tanh`
+- [x] `tanh`
 - [ ] `tanpi`
 - [ ] `tgamma`
 

@@ -16,6 +16,14 @@ int main() {
   assert(canon::sinh(0.0) == 0.0);
   assert(canon::cosh(0.0) == 1.0);
 
+  assert(canon::tanh(0.0) == 0.0);
+  assert(canon::asinh(0.0) == 0.0);
+  assert(canon::acosh(1.0) == 0.0);
+  assert(canon::atanh(0.0) == 0.0);
+  assert(canon::cbrt(8.0) == 2.0);
+  assert(canon::hypot(3.0, 4.0) == 5.0);
+  assert(canon::expm1(0.0) == 0.0);
+
   std::puts("test_scalar: ok");
   return 0;
 }

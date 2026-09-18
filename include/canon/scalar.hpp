@@ -27,4 +27,12 @@ double atan2(double y, double x);
 double sinh(double x);
 double cosh(double x);
 
+double tanh(double x);
+double asinh(double x);
+double acosh(double x);
+double atanh(double x);
+double cbrt(double x);
+double hypot(double x, double y);
+double expm1(double x);
+
 }  // namespace canon

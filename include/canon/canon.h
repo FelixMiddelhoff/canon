@@ -36,6 +36,14 @@ CANON_API double canon_atan2(double y, double x);
 CANON_API double canon_sinh(double x);
 CANON_API double canon_cosh(double x);
 
+CANON_API double canon_tanh(double x);
+CANON_API double canon_asinh(double x);
+CANON_API double canon_acosh(double x);
+CANON_API double canon_atanh(double x);
+CANON_API double canon_cbrt(double x);
+CANON_API double canon_hypot(double x, double y);
+CANON_API double canon_expm1(double x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

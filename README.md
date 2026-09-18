@@ -28,7 +28,9 @@ double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
 
 `canon::sin`, `canon::cos`, `canon::exp`, `canon::log`, `canon::pow`,
 `canon::sqrt`, `canon::tan`, `canon::asin`, `canon::acos`, `canon::atan`,
-`canon::atan2`, `canon::sinh`, and `canon::cosh` are all real,
+`canon::atan2`, `canon::sinh`, `canon::cosh`, `canon::tanh`,
+`canon::asinh`, `canon::acosh`, `canon::atanh`, `canon::cbrt`,
+`canon::hypot`, and `canon::expm1` are all real,
 correctly-rounded, bit-exact implementations today — not a `<cmath>`
 wrapper. All but sqrt are vendored from the
 [CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT license,
@@ -46,10 +48,11 @@ Windows builds use clang-cl, not cl.exe: the vendored CORE-MATH sources
 clang-cl understands them and stays MSVC-ABI-compatible for linking against
 the rest of the toolchain.
 
-**v0.1 shipped six double-precision functions; v0.2 adds seven more**
-(`tan`/`asin`/`acos`/`atan`/`atan2`/`sinh`/`cosh`). v1 is the full
-function-by-function target list, with no exceptions carved out ahead of
-time: see [docs/scope.md](docs/scope.md).
+**v0.1 shipped six double-precision functions; v0.2 added seven more**
+(`tan`/`asin`/`acos`/`atan`/`atan2`/`sinh`/`cosh`); **v0.3 adds seven
+more** (`tanh`/`asinh`/`acosh`/`atanh`/`cbrt`/`hypot`/`expm1`). v1 is the
+full function-by-function target list, with no exceptions carved out
+ahead of time: see [docs/scope.md](docs/scope.md).
 
 ## Building
 

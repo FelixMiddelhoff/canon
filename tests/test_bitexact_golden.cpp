@@ -36,6 +36,14 @@ int main() {
   print_bits("sinh(1.0)", canon::sinh(1.0));
   print_bits("cosh(1.0)", canon::cosh(1.0));
 
+  print_bits("tanh(1.0)", canon::tanh(1.0));
+  print_bits("asinh(1.0)", canon::asinh(1.0));
+  print_bits("acosh(2.0)", canon::acosh(2.0));
+  print_bits("atanh(0.5)", canon::atanh(0.5));
+  print_bits("cbrt(2.0)", canon::cbrt(2.0));
+  print_bits("hypot(3.0,4.0)", canon::hypot(3.0, 4.0));
+  print_bits("expm1(1.0)", canon::expm1(1.0));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is
