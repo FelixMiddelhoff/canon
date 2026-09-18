@@ -1,173 +1,84 @@
-# Function scope: v0.1 vs v1
+# Function scope
 
-Referenced from `include/canon/scalar.hpp`. This is the actual list, not
-a vague "rest of libm" — v1 is not done until every function below has a
-real, vendored, CI-bit-exact-gated implementation, the same bar
-sin/cos/sqrt/exp/log/pow already clear.
+Referenced from `include/canon/scalar.hpp`. This is the explicit,
+authoritative list of what canon covers — not a vague "rest of libm."
 
-## v0.1 — done
+canon's scope is every function [CORE-MATH](https://core-math.gitlabpages.inria.fr/)
+provides a correctly-rounded implementation for, in both `binary64`
+(double) and `binary32` (float): source of truth is CORE-MATH's
+`src/binary64/` and `src/binary32/` directories. Each is vendored,
+verified against a true correctly-rounded reference (`mpmath` at high
+precision — `std::`/platform `math` libraries are themselves only
+*usually* correctly-rounded, so they're not a trustworthy check), and
+covered by the bit-exact golden test.
 
-Double-precision only. All six real (vendored from
-[CORE-MATH](https://core-math.gitlabpages.inria.fr/), MIT, except `sqrt`
-which is bit-exact for free via hardware), all CI-gated in
-`tests/test_bitexact_golden.cpp` / `.github/workflows/ci.yml`'s
-`bitexact-verify` job.
+## Double precision (`binary64`)
 
-- [x] `sin`
-- [x] `cos`
-- [x] `sqrt`
-- [x] `exp`
-- [x] `log`
-- [x] `pow`
+`sin`, `cos`, `sqrt`, `exp`, `log`, `pow`, `tan`, `asin`, `acos`, `atan`,
+`atan2`, `sinh`, `cosh`, `tanh`, `asinh`, `acosh`, `atanh`, `cbrt`,
+`hypot`, `expm1`, `log1p`, `log2`, `log10`, `exp2`, `exp10`, `sincos`,
+`rsqrt`, `erf`, `erfc`, `lgamma`, `tgamma`, `sinpi`, `cospi`, `tanpi`,
+`asinpi`, `acospi`, `atanpi`, `atan2pi`, `exp2m1`, `exp10m1`, `log2p1`,
+`log10p1`.
 
-## v1 — required before tagging 1.0
+`sqrt` is bit-exact for free via hardware (IEEE754 mandates
+correctly-rounded sqrt); every other function above is vendored from
+CORE-MATH (MIT license, `third_party/core-math/`).
 
-**Full libm, both precisions.** v1 is not "some more functions" — it is
-every function below, in both `binary64` (double) and `binary32` (float),
-each vendored from CORE-MATH the same way v0.1's six were, each verified
-against `std::`/reference values on real inputs before merging, each
-added to the bit-exact golden test and gated by CI across the full
-os/arch/compiler matrix. No exceptions carved out ahead of time; if a
-specific function turns out to need something a target can't provide (the
-way `log`/`pow`'s `__int128` need forced the clang-cl decision for
-Windows), that gets resolved the same way — fix the real blocker, not
-drop the function from scope.
+## Single precision (`binary32`)
 
-Source of truth for what exists upstream: CORE-MATH's
-`src/binary64/` and `src/binary32/` directories.
+Same functions, `f` suffix, matching CORE-MATH's own naming
+(`sinf`, `cosf`, `sqrtf`, `expf`, `logf`, `powf`, `tanf`, `asinf`,
+`acosf`, `atanf`, `atan2f`, `sinhf`, `coshf`, `tanhf`, `asinhf`,
+`acoshf`, `atanhf`, `cbrtf`, `hypotf`, `expm1f`, `log1pf`, `log2f`,
+`log10f`, `exp2f`, `exp10f`, `sincosf`, `rsqrtf`, `erff`, `erfcf`,
+`lgammaf`, `tgammaf`, `sinpif`, `cospif`, `tanpif`, `asinpif`,
+`acospif`, `atanpif`, `atan2pif`, `exp2m1f`, `exp10m1f`, `log2p1f`,
+`log10p1f`) — not C++ overloads of the double-precision names, since the
+C ABI (`canon_sin` vs. `canon_sinf`) can't overload either.
 
-### Double precision (`binary64`) — target list
+`sqrtf` is bit-exact for free the same way `sqrt` is; every other f32
+function is vendored from CORE-MATH.
 
-- [x] `acos`
-- [x] `acosh`
-- [x] `acospi`
-- [x] `asin`
-- [x] `asinh`
-- [x] `asinpi`
-- [x] `atan`
-- [x] `atan2`
-- [x] `atan2pi`
-- [x] `atanh`
-- [x] `atanpi`
-- [x] `cbrt`
-- [x] `cosh`
-- [x] `cospi`
-- [x] `erf`
-- [x] `erfc`
-- [x] `exp10`
-- [x] `exp10m1`
-- [x] `exp2`
-- [x] `exp2m1`
-- [x] `expm1`
-- [x] `hypot`
-- [x] `lgamma`
-- [x] `log10`
-- [x] `log10p1`
-- [x] `log1p`
-- [x] `log2`
-- [x] `log2p1`
-- [x] `rsqrt`
-- [x] `sincos`
-- [x] `sinh`
-- [x] `sinpi`
-- [x] `tan`
-- [x] `tanh`
-- [x] `tanpi`
-- [x] `tgamma`
+Upstream directory names for `binary32` match the `binary64` layout
+(e.g. `src/binary32/sin/sinf.c`, not a separate `sinf/` directory) —
+only the file inside carries the `f` suffix.
 
-### Single precision (`binary32`) — every v0.1 + above function, `f` suffix
+## Vendoring a function
 
-v0.1's six, f32:
-
-- [x] `sinf`
-- [x] `cosf`
-- [x] `sqrtf` (bit-exact via hardware, no vendoring — same as `sqrt`)
-- [x] `expf`
-- [x] `logf`
-- [x] `powf`
-
-f32 counterpart of every remaining double-precision function above (same
-names, `f` suffix, matching CORE-MATH's `src/binary32/` layout — note the
-upstream directory names match the f64 ones, e.g. `src/binary32/sin/sinf.c`,
-not a separate `sinf/` directory):
-
-- [x] `acosf`
-- [x] `acoshf`
-- [x] `acospif`
-- [x] `asinf`
-- [x] `asinhf`
-- [x] `asinpif`
-- [x] `atanf`
-- [x] `atan2f`
-- [x] `atan2pif`
-- [x] `atanhf`
-- [x] `atanpif`
-- [x] `cbrtf`
-- [x] `coshf`
-- [x] `cospif`
-- [x] `erff`
-- [x] `erfcf`
-- [x] `exp10f`
-- [x] `exp10m1f`
-- [x] `exp2f`
-- [x] `exp2m1f`
-- [x] `expm1f`
-- [x] `hypotf`
-- [x] `lgammaf`
-- [x] `log10f`
-- [x] `log10p1f`
-- [x] `log1pf`
-- [x] `log2f`
-- [x] `log2p1f`
-- [x] `rsqrtf`
-- [x] `sincosf`
-- [x] `sinhf`
-- [x] `sinpif`
-- [x] `tanf`
-- [x] `tanhf`
-- [x] `tanpif`
-- [x] `tgammaf`
-
-## Process for each new function
-
-Repeats the pattern established for sin/cos/exp/log/pow:
-
-1. Fetch the real source from upstream CORE-MATH (MIT license — already
-   verified compatible, see `canon-memory.md` in the planning repo for
-   the license check), including any per-function local support headers
-   (`dint.h`/`qint.h`-style files live per-function-directory, not
-   shared — check what each function actually `#include`s).
+1. Fetch the source from upstream CORE-MATH (MIT license), including any
+   per-function local support headers (`dint.h`/`qint.h`/`tint.h`-style
+   files live per-function-directory, not shared — check what the file
+   actually `#include`s).
 2. Vendor into `third_party/core-math/<name>/`, add to
    `CANON_VENDOR_SOURCES` in `CMakeLists.txt`.
-3. Wire into `canon::<name>` in `src/scalar.cpp` (or a new header for
-   functions with no v0.1 precedent, e.g. `atan2` takes two arguments
-   like `pow` does).
-4. Verify against `std::`/reference values on real inputs — not just
-   "it links" — before treating it as done.
-5. Add to `tests/test_bitexact_golden.cpp` so CI's `bitexact-verify`
-   job covers it.
-6. If cl.exe/clang-cl or any other target in the CI matrix can't compile
-   it, that is a blocker to resolve for real (as clang-cl was for
-   log/pow's `__int128`), not a reason to skip the function.
+3. Wire into `canon::<name>` in `src/scalar.cpp` (a two-argument function
+   like `atan2`/`pow`/`hypot` takes two parameters; `sincos` takes two
+   output pointers instead of returning a value).
+4. Verify against a true correctly-rounded reference (`mpmath` at high
+   precision, not `std::`/platform `math`) on real inputs — linking
+   successfully is not verification.
+5. Add to `tests/test_bitexact_golden.cpp` so CI's `bitexact-verify` job
+   covers it.
+6. If a compiler in the CI matrix can't compile the vendored source (as
+   MSVC/clang-cl couldn't handle GNU C extensions, `__int128`, or the
+   POSIX `signgam` global some functions use), that's a real
+   compatibility gap to fix — a compiler-flag or toolchain change, or a
+   small force-included compatibility header, never an edit to the
+   vendored source itself and never a reason to drop the function.
 
-## v1 tag gate — all four required, no exceptions
+## Out of scope
 
-1. All functions above vendored and real.
-2. Every function has test coverage (bit-exact golden entry at minimum;
-   functions with distinct edge cases — domain errors, poles, special
-   values — get their own assertions too).
-3. CI passes for real across the full matrix — confirmed via the actual
-   run (`gh run view`, job count), not just "the workflow file looks
-   right." (A matrix-configuration bug once made CI silently test one leg
-   twice instead of all twelve — see `.github/workflows/ci.yml`'s
-   comment on `matrix.include` for what to watch for.)
-4. **CodeQL ("Security and quality") has zero findings.** Not advisory
-   for the 1.0 tag specifically — a hard precondition. Anything flagged
-   gets fixed or explicitly dismissed with a documented reason first.
-
-## Out of scope forever (not v1, not planned)
-
-- Anything not double or single precision (no `long double`, no f16/bf16).
-- Complex-number math.
-- Anything CORE-MATH itself doesn't provide a correctly-rounded
-  implementation for.
+- **Anything not `binary64`/`binary32`** — no `long double`, no f16/bf16.
+- **Complex-number math.**
+- **Elementary/exact operations CORE-MATH doesn't cover**, because they
+  are already bit-exact via hardware or trivial bit manipulation, not a
+  correctly-rounding problem: `floor`, `ceil`, `round`, `trunc`, `rint`,
+  `nearbyint`, `modf`, `frexp`, `ldexp`, `scalbn`, `ilogb`, `fmod`,
+  `remainder`, `remquo`, `copysign`, `nextafter`, `nexttoward`, `fmin`,
+  `fmax`, `fdim`, `isnan`, `isinf`, `isfinite`, `signbit`. `fma` is also
+  out of scope: correctly-rounded fused multiply-add is already an
+  IEEE754-mandated hardware primitive where the target has one, the same
+  reasoning as `sqrt`, but canon does not currently wrap it — a caller
+  needing a portable bit-exact `fma` should use the compiler/hardware
+  intrinsic directly rather than assume canon covers it.

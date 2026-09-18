@@ -11,8 +11,8 @@ GitHub's private reporting instead:
 
 ## Supported versions
 
-canon is pre-1.0 and tracks a single moving line: the latest commit on
-`main`. There is no older release branch receiving backports.
+canon tracks a single moving line: the latest commit on `main`. There is
+no older release branch receiving backports.
 
 ## Scope
 
@@ -45,6 +45,6 @@ no dependencies. Realistic concerns:
   need a real cryptographic hash instead).
 - The bit-exactness claim is enforced by CI (`.github/workflows/ci.yml`'s
   `bitexact-verify` job fails the build on any cross-leg digest mismatch),
-  not just asserted in prose — but it still only covers the six functions
-  in `tests/test_bitexact_golden.cpp` on the exact matrix legs CI runs.
-  A platform/compiler/flag combination outside that matrix is unverified.
+  not just asserted in prose — but it still only covers the functions in
+  `tests/test_bitexact_golden.cpp` on the exact matrix legs CI runs. A
+  platform/compiler/flag combination outside that matrix is unverified.

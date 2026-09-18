@@ -7,8 +7,7 @@
 // close, sometimes off by 1 ULP and never the same 1 ULP twice" for a fixed,
 // portable, correctly-rounded implementation.
 //
-// v0.1 covers the double-precision subset used by simulation/replay/finance
-// code most often; f32 and the rest of libm (docs/scope.md) are v1 scope.
+// Full function list and what's intentionally out of scope: docs/scope.md.
 
 namespace canon {
 

@@ -2,7 +2,8 @@
 #define CANON_H
 
 /* C ABI surface — for FFI from languages/engines that can't link C++
- * directly. Mirrors the v0.1 scalar + hash surface. */
+ * directly. Mirrors the scalar + hash surface — see docs/scope.md for
+ * the full function list. */
 
 #include <stddef.h>
 #include <stdint.h>

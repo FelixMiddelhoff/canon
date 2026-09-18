@@ -1,2 +1,1 @@
-# Placeholder — perf bench lands once scalar.cpp has a real (non-<cmath>)
-# implementation to measure against libm.
+# Perf bench: measures canon:: functions against the platform's own libm.

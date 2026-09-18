@@ -2,15 +2,16 @@
 
 #include <cmath>
 
-// sin/cos/exp/log/pow are all real now: vendored from CORE-MATH (MIT
-// license, third_party/core-math/), correctly-rounded and bit-exact across
-// x86-64/ARM64 x GCC/Clang/clang-cl given canon's required compile flags.
-// (Windows uses clang-cl, not cl.exe — see CMakeLists.txt / ci.yml — since
-// the vendored sources need GNU C extensions and, for log/pow, __int128,
-// none of which cl.exe supports.)
+// Every function below is vendored from CORE-MATH (MIT license,
+// third_party/core-math/), correctly-rounded and bit-exact across
+// x86-64/ARM64 x GCC/Clang/clang-cl given canon's required compile flags,
+// except sqrt/sqrtf (see below). Windows uses clang-cl, not cl.exe — see
+// CMakeLists.txt / ci.yml — since the vendored sources need GNU C
+// extensions and, for some functions, __int128 or the POSIX `signgam`
+// global, none of which cl.exe supports.
 //
-// sqrt is the one function that was never a placeholder: IEEE754 requires
-// correctly-rounded sqrt in hardware, so canon::sqrt is bit-exact for free.
+// sqrt/sqrtf need no vendoring: IEEE754 requires correctly-rounded sqrt in
+// hardware at both precisions, so they're bit-exact for free.
 
 extern "C" {
 double cr_sin(double x);
