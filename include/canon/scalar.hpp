@@ -104,4 +104,12 @@ float cospif(float x);
 float tanpif(float x);
 float asinpif(float x);
 
+float acospif(float x);
+float atanpif(float x);
+float atan2pif(float y, float x);
+float exp2m1f(float x);
+float exp10m1f(float x);
+float log2p1f(float x);
+float log10p1f(float x);
+
 }  // namespace canon

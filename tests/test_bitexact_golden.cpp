@@ -125,6 +125,14 @@ int main() {
   print_bits32("tanpif(0.25)", canon::tanpif(0.25f));
   print_bits32("asinpif(0.5)", canon::asinpif(0.5f));
 
+  print_bits32("acospif(0.5)", canon::acospif(0.5f));
+  print_bits32("atanpif(1.0)", canon::atanpif(1.0f));
+  print_bits32("atan2pif(1.0,2.0)", canon::atan2pif(1.0f, 2.0f));
+  print_bits32("exp2m1f(1.5)", canon::exp2m1f(1.5f));
+  print_bits32("exp10m1f(1.5)", canon::exp10m1f(1.5f));
+  print_bits32("log2p1f(1.0)", canon::log2p1f(1.0f));
+  print_bits32("log10p1f(9.0)", canon::log10p1f(9.0f));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is

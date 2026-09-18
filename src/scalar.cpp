@@ -88,6 +88,13 @@ float cr_sinpif(float x);
 float cr_cospif(float x);
 float cr_tanpif(float x);
 float cr_asinpif(float x);
+float cr_acospif(float x);
+float cr_atanpif(float x);
+float cr_atan2pif(float y, float x);
+float cr_exp2m1f(float x);
+float cr_exp10m1f(float x);
+float cr_log2p1f(float x);
+float cr_log10p1f(float x);
 }
 
 namespace canon {
@@ -179,5 +186,13 @@ float sinpif(float x) { return cr_sinpif(x); }
 float cospif(float x) { return cr_cospif(x); }
 float tanpif(float x) { return cr_tanpif(x); }
 float asinpif(float x) { return cr_asinpif(x); }
+
+float acospif(float x) { return cr_acospif(x); }
+float atanpif(float x) { return cr_atanpif(x); }
+float atan2pif(float y, float x) { return cr_atan2pif(y, x); }
+float exp2m1f(float x) { return cr_exp2m1f(x); }
+float exp10m1f(float x) { return cr_exp10m1f(x); }
+float log2p1f(float x) { return cr_log2p1f(x); }
+float log10p1f(float x) { return cr_log10p1f(x); }
 
 }  // namespace canon

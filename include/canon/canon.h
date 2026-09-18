@@ -109,6 +109,14 @@ CANON_API float canon_cospif(float x);
 CANON_API float canon_tanpif(float x);
 CANON_API float canon_asinpif(float x);
 
+CANON_API float canon_acospif(float x);
+CANON_API float canon_atanpif(float x);
+CANON_API float canon_atan2pif(float y, float x);
+CANON_API float canon_exp2m1f(float x);
+CANON_API float canon_exp10m1f(float x);
+CANON_API float canon_log2p1f(float x);
+CANON_API float canon_log10p1f(float x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

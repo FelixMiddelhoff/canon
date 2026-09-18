@@ -94,6 +94,14 @@ float canon_cospif(float x) { return canon::cospif(x); }
 float canon_tanpif(float x) { return canon::tanpif(x); }
 float canon_asinpif(float x) { return canon::asinpif(x); }
 
+float canon_acospif(float x) { return canon::acospif(x); }
+float canon_atanpif(float x) { return canon::atanpif(x); }
+float canon_atan2pif(float y, float x) { return canon::atan2pif(y, x); }
+float canon_exp2m1f(float x) { return canon::exp2m1f(x); }
+float canon_exp10m1f(float x) { return canon::exp10m1f(x); }
+float canon_log2p1f(float x) { return canon::log2p1f(x); }
+float canon_log10p1f(float x) { return canon::log10p1f(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

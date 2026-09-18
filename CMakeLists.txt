@@ -110,6 +110,13 @@ set(CANON_VENDOR_SOURCES
   third_party/core-math/cospif/cospif.c
   third_party/core-math/tanpif/tanpif.c
   third_party/core-math/asinpif/asinpif.c
+  third_party/core-math/acospif/acospif.c
+  third_party/core-math/atanpif/atanpif.c
+  third_party/core-math/atan2pif/atan2pif.c
+  third_party/core-math/exp2m1f/exp2m1f.c
+  third_party/core-math/exp10m1f/exp10m1f.c
+  third_party/core-math/log2p1f/log2p1f.c
+  third_party/core-math/log10p1f/log10p1f.c
 )
 add_library(canon_vendor OBJECT ${CANON_VENDOR_SOURCES})
 set_target_properties(canon_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)

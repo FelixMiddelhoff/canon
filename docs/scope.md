@@ -93,32 +93,32 @@ not a separate `sinf/` directory):
 
 - [x] `acosf`
 - [x] `acoshf`
-- [ ] `acospif`
+- [x] `acospif`
 - [x] `asinf`
 - [x] `asinhf`
 - [x] `asinpif`
 - [x] `atanf`
 - [x] `atan2f`
-- [ ] `atan2pif`
+- [x] `atan2pif`
 - [x] `atanhf`
-- [ ] `atanpif`
+- [x] `atanpif`
 - [x] `cbrtf`
 - [x] `coshf`
 - [x] `cospif`
 - [x] `erff`
 - [x] `erfcf`
 - [x] `exp10f`
-- [ ] `exp10m1f`
+- [x] `exp10m1f`
 - [x] `exp2f`
-- [ ] `exp2m1f`
+- [x] `exp2m1f`
 - [x] `expm1f`
 - [x] `hypotf`
 - [x] `lgammaf`
 - [x] `log10f`
-- [ ] `log10p1f`
+- [x] `log10p1f`
 - [x] `log1pf`
 - [x] `log2f`
-- [ ] `log2p1f`
+- [x] `log2p1f`
 - [x] `rsqrtf`
 - [x] `sincosf`
 - [x] `sinhf`

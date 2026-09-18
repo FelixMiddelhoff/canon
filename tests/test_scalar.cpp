@@ -99,6 +99,14 @@ int main() {
   assert(canon::tanpif(0.0f) == 0.0f);
   assert(canon::asinpif(0.0f) == 0.0f);
 
+  assert(canon::acospif(1.0f) == 0.0f);
+  assert(canon::atanpif(0.0f) == 0.0f);
+  assert(canon::atan2pif(0.0f, 1.0f) == 0.0f);
+  assert(canon::exp2m1f(0.0f) == 0.0f);
+  assert(canon::exp10m1f(0.0f) == 0.0f);
+  assert(canon::log2p1f(0.0f) == 0.0f);
+  assert(canon::log10p1f(0.0f) == 0.0f);
+
   std::puts("test_scalar: ok");
   return 0;
 }
