@@ -26,17 +26,28 @@ double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
 
 ## Status — read this before relying on the bit-exactness claim
 
-**`src/scalar.cpp` is currently a `<cmath>` wrapper**, i.e. exactly the
-platform-divergent behavior canon exists to replace. It's there so the
-skeleton builds and has a running test suite from day one. The CI matrix
-(`.github/workflows/ci.yml`) already runs a bit-exact digest job across
-x86-64/ARM64 × GCC/Clang/MSVC on every push — informational for now, it
-becomes a hard pass/fail gate once the correctly-rounded implementation
-lands.
+`canon::sin`, `canon::cos`, `canon::exp`, and `canon::sqrt` are real,
+correctly-rounded, bit-exact today. sin/cos/exp are vendored from the
+[CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT license,
+see `third_party/core-math/`); sqrt is bit-exact for free since IEEE754
+mandates correctly-rounded hardware sqrt.
 
-`canon::sqrt` is the one function that's bit-exact *today* — IEEE754
-mandates correctly-rounded hardware sqrt, so wrapping it needs no further
-work.
+**`canon::log` and `canon::pow` are still a `<cmath>` wrapper** — exactly
+the platform-divergent behavior canon exists to replace. They're not
+vendored yet: upstream CORE-MATH's log/pow need `__int128` for their
+accurate fallback path, and canon's CI matrix builds all three of
+GCC/Clang/clang-cl, so that gap needs a real answer before those two land.
+
+The CI matrix (`.github/workflows/ci.yml`) runs a bit-exact digest job
+across x86-64/ARM64 × GCC/Clang/clang-cl on every push — informational for
+now while log/pow aren't real yet, it becomes a hard pass/fail gate once
+they are.
+
+Windows builds use clang-cl, not cl.exe: the vendored CORE-MATH sources
+(`third_party/core-math/`) use GNU C extensions (`__attribute__`,
+`__builtin_*`, `__int128`, inline asm) that cl.exe cannot parse at all.
+clang-cl understands them and stays MSVC-ABI-compatible for linking against
+the rest of the toolchain.
 
 ## Building
 
@@ -44,6 +55,13 @@ work.
 cmake -S . -B build -DCANON_SHARED=ON
 cmake --build build
 ctest --test-dir build --output-on-failure
+```
+
+On Windows, configure with clang-cl (see Status above) rather than the
+default MSVC toolset, e.g. from a Developer Command Prompt:
+
+```bash
+cmake -S . -B build -G Ninja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
 ```
 
 ## C ABI

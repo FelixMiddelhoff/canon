@@ -28,8 +28,14 @@ jobs:
             cxx: g++
           - os: windows-latest
             arch: x86-64
-            cc: cl
-            cxx: cl
+            # clang-cl, not cl.exe: CORE-MATH's vendored sources
+            # (third_party/core-math/) use GNU C extensions throughout
+            # (__attribute__, __builtin_*, __int128, inline asm) that
+            # cl.exe cannot parse at all. clang-cl understands them while
+            # staying MSVC-ABI-compatible for linking against the rest of
+            # the toolchain, so it's the real fix, not a workaround.
+            cc: clang-cl
+            cxx: clang-cl
           - os: macos-13
             arch: x86-64
             cc: clang
@@ -45,11 +51,18 @@ jobs:
       CXX: ${{ matrix.cxx }}
     steps:
       - uses: actions/checkout@v7
+      - name: Setup MSVC dev environment
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Setup Ninja
+        if: runner.os == 'Windows'
+        uses: seanmiddleditch/gha-setup-ninja@v6
       - name: Configure
         shell: bash
         run: |
-          if [ "${{ matrix.cc }}" = "cl" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON
+          if [ "${{ matrix.cc }}" = "clang-cl" ]; then
+            cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON \
+              -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
           else
             cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON \
               -DCMAKE_C_COMPILER=${{ matrix.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}

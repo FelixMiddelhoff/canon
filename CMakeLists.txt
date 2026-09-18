@@ -1,11 +1,14 @@
 # canon — cross-platform bit-exact math library.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.20)
-project(canon LANGUAGES CXX VERSION 0.1.0)
+project(canon LANGUAGES C CXX VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # Standalone build vs. consumed as a subdirectory.
 set(CANON_STANDALONE OFF)
@@ -26,7 +29,26 @@ set(CANON_SOURCES
   src/c_api.cpp
 )
 
-add_library(canon STATIC ${CANON_SOURCES})
+# Vendored CORE-MATH (MIT) correctly-rounded implementations — sin/cos/exp
+# only for now. log/pow are NOT vendored yet: upstream's accurate fallback
+# path needs __int128, which MSVC's cl.exe has no equivalent for, and canon
+# targets MSVC in its CI matrix without exception. Those two functions stay
+# on the <cmath> placeholder (src/scalar.cpp) until that gap is solved.
+set(CANON_VENDOR_SOURCES
+  third_party/core-math/sin/sin.c
+  third_party/core-math/cos/cos.c
+  third_party/core-math/exp/exp.c
+)
+add_library(canon_vendor OBJECT ${CANON_VENDOR_SOURCES})
+set_target_properties(canon_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)
+if(MSVC)
+  target_compile_options(canon_vendor PRIVATE /fp:strict)
+else()
+  target_compile_options(canon_vendor PRIVATE
+    -ffp-contract=off -fno-fast-math -frounding-math)
+endif()
+
+add_library(canon STATIC ${CANON_SOURCES} $<TARGET_OBJECTS:canon_vendor>)
 add_library(canon::canon ALIAS canon)
 target_include_directories(canon PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -45,9 +67,17 @@ else()
 endif()
 
 if(CANON_SHARED)
-  add_library(canon_shared SHARED ${CANON_SOURCES})
+  add_library(canon_shared SHARED ${CANON_SOURCES} $<TARGET_OBJECTS:canon_vendor>)
   add_library(canon::shared ALIAS canon_shared)
   set_target_properties(canon_shared PROPERTIES OUTPUT_NAME canon)
+  if(WIN32)
+    # On Windows the shared lib's import library and the static lib both
+    # want to be canon.lib in the same build tree — same extension, unlike
+    # Unix's libcanon.so vs libcanon.a. Give the import lib a distinct name;
+    # the DLL itself (RUNTIME_OUTPUT_NAME, unaffected here) still ends up
+    # canon.dll.
+    set_target_properties(canon_shared PROPERTIES ARCHIVE_OUTPUT_NAME canon_dll)
+  endif()
   target_include_directories(canon_shared PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

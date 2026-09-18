@@ -43,8 +43,9 @@ no dependencies. Realistic concerns:
   between trusted nodes running the same binary — never use it where an
   adversary could construct a colliding input (integrity/signing use cases
   need a real cryptographic hash instead).
-- Until the correctly-rounded implementation replaces the `<cmath>`
-  placeholder in `src/scalar.cpp`, canon's bit-exactness guarantee
-  does **not** yet hold across platforms — treat pre-1.0 versions as
-  "reproducible on one machine, not yet proven identical across all
-  targets" and check the CI bit-exact digest job before relying on it.
+- `canon::log` and `canon::pow` are still the `<cmath>` placeholder (see
+  README's Status section); until they're replaced, canon's bit-exactness
+  guarantee does **not** yet hold across platforms for those two functions
+  — treat pre-1.0 versions as "reproducible on one machine, not yet proven
+  identical across all targets" and check the CI bit-exact digest job
+  before relying on it.
