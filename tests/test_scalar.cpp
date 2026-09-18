@@ -62,6 +62,14 @@ int main() {
   assert(canon::powf(2.0f, 10.0f) == 1024.0f);
   assert(canon::tanf(0.0f) == 0.0f);
 
+  assert(canon::asinf(0.0f) == 0.0f);
+  assert(canon::acosf(1.0f) == 0.0f);
+  assert(canon::atanf(0.0f) == 0.0f);
+  assert(canon::atan2f(0.0f, 1.0f) == 0.0f);
+  assert(canon::sinhf(0.0f) == 0.0f);
+  assert(canon::coshf(0.0f) == 1.0f);
+  assert(canon::tanhf(0.0f) == 0.0f);
+
   std::puts("test_scalar: ok");
   return 0;
 }

@@ -60,6 +60,13 @@ float cr_expf(float x);
 float cr_logf(float x);
 float cr_powf(float base, float exponent);
 float cr_tanf(float x);
+float cr_asinf(float x);
+float cr_acosf(float x);
+float cr_atanf(float x);
+float cr_atan2f(float y, float x);
+float cr_sinhf(float x);
+float cr_coshf(float x);
+float cr_tanhf(float x);
 }
 
 namespace canon {
@@ -119,5 +126,13 @@ float expf(float x) { return cr_expf(x); }
 float logf(float x) { return cr_logf(x); }
 float powf(float base, float exponent) { return cr_powf(base, exponent); }
 float tanf(float x) { return cr_tanf(x); }
+
+float asinf(float x) { return cr_asinf(x); }
+float acosf(float x) { return cr_acosf(x); }
+float atanf(float x) { return cr_atanf(x); }
+float atan2f(float y, float x) { return cr_atan2f(y, x); }
+float sinhf(float x) { return cr_sinhf(x); }
+float coshf(float x) { return cr_coshf(x); }
+float tanhf(float x) { return cr_tanhf(x); }
 
 }  // namespace canon

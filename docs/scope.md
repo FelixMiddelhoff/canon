@@ -91,19 +91,19 @@ names, `f` suffix, matching CORE-MATH's `src/binary32/` layout — note the
 upstream directory names match the f64 ones, e.g. `src/binary32/sin/sinf.c`,
 not a separate `sinf/` directory):
 
-- [ ] `acosf`
+- [x] `acosf`
 - [ ] `acoshf`
 - [ ] `acospif`
-- [ ] `asinf`
+- [x] `asinf`
 - [ ] `asinhf`
 - [ ] `asinpif`
-- [ ] `atanf`
-- [ ] `atan2f`
+- [x] `atanf`
+- [x] `atan2f`
 - [ ] `atan2pif`
 - [ ] `atanhf`
 - [ ] `atanpif`
 - [ ] `cbrtf`
-- [ ] `coshf`
+- [x] `coshf`
 - [ ] `cospif`
 - [ ] `erff`
 - [ ] `erfcf`
@@ -121,10 +121,10 @@ not a separate `sinf/` directory):
 - [ ] `log2p1f`
 - [ ] `rsqrtf`
 - [ ] `sincosf`
-- [ ] `sinhf`
+- [x] `sinhf`
 - [ ] `sinpif`
 - [x] `tanf`
-- [ ] `tanhf`
+- [x] `tanhf`
 - [ ] `tanpif`
 - [ ] `tgammaf`
 

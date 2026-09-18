@@ -88,6 +88,14 @@ int main() {
   print_bits32("powf(1.0001,20.0)", canon::powf(1.0001f, 20.0f));
   print_bits32("tanf(1.0)", canon::tanf(1.0f));
 
+  print_bits32("asinf(0.5)", canon::asinf(0.5f));
+  print_bits32("acosf(0.5)", canon::acosf(0.5f));
+  print_bits32("atanf(1.0)", canon::atanf(1.0f));
+  print_bits32("atan2f(1.0,2.0)", canon::atan2f(1.0f, 2.0f));
+  print_bits32("sinhf(1.0)", canon::sinhf(1.0f));
+  print_bits32("coshf(1.0)", canon::coshf(1.0f));
+  print_bits32("tanhf(1.0)", canon::tanhf(1.0f));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is

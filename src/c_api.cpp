@@ -62,6 +62,14 @@ float canon_logf(float x) { return canon::logf(x); }
 float canon_powf(float base, float exponent) { return canon::powf(base, exponent); }
 float canon_tanf(float x) { return canon::tanf(x); }
 
+float canon_asinf(float x) { return canon::asinf(x); }
+float canon_acosf(float x) { return canon::acosf(x); }
+float canon_atanf(float x) { return canon::atanf(x); }
+float canon_atan2f(float y, float x) { return canon::atan2f(y, x); }
+float canon_sinhf(float x) { return canon::sinhf(x); }
+float canon_coshf(float x) { return canon::coshf(x); }
+float canon_tanhf(float x) { return canon::tanhf(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

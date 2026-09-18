@@ -72,4 +72,12 @@ float logf(float x);
 float powf(float base, float exponent);
 float tanf(float x);
 
+float asinf(float x);
+float acosf(float x);
+float atanf(float x);
+float atan2f(float y, float x);
+float sinhf(float x);
+float coshf(float x);
+float tanhf(float x);
+
 }  // namespace canon
