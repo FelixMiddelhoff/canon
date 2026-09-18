@@ -96,4 +96,12 @@ void sincosf(float x, float* s, float* c);
 float rsqrtf(float x);
 float erff(float x);
 
+float erfcf(float x);
+float lgammaf(float x);
+float tgammaf(float x);
+float sinpif(float x);
+float cospif(float x);
+float tanpif(float x);
+float asinpif(float x);
+
 }  // namespace canon

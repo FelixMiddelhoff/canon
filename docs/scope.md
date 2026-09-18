@@ -96,7 +96,7 @@ not a separate `sinf/` directory):
 - [ ] `acospif`
 - [x] `asinf`
 - [x] `asinhf`
-- [ ] `asinpif`
+- [x] `asinpif`
 - [x] `atanf`
 - [x] `atan2f`
 - [ ] `atan2pif`
@@ -104,16 +104,16 @@ not a separate `sinf/` directory):
 - [ ] `atanpif`
 - [x] `cbrtf`
 - [x] `coshf`
-- [ ] `cospif`
+- [x] `cospif`
 - [x] `erff`
-- [ ] `erfcf`
+- [x] `erfcf`
 - [x] `exp10f`
 - [ ] `exp10m1f`
 - [x] `exp2f`
 - [ ] `exp2m1f`
 - [x] `expm1f`
 - [x] `hypotf`
-- [ ] `lgammaf`
+- [x] `lgammaf`
 - [x] `log10f`
 - [ ] `log10p1f`
 - [x] `log1pf`
@@ -122,11 +122,11 @@ not a separate `sinf/` directory):
 - [x] `rsqrtf`
 - [x] `sincosf`
 - [x] `sinhf`
-- [ ] `sinpif`
+- [x] `sinpif`
 - [x] `tanf`
 - [x] `tanhf`
-- [ ] `tanpif`
-- [ ] `tgammaf`
+- [x] `tanpif`
+- [x] `tgammaf`
 
 ## Process for each new function
 

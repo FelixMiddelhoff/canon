@@ -86,6 +86,14 @@ void canon_sincosf(float x, float* s, float* c) { canon::sincosf(x, s, c); }
 float canon_rsqrtf(float x) { return canon::rsqrtf(x); }
 float canon_erff(float x) { return canon::erff(x); }
 
+float canon_erfcf(float x) { return canon::erfcf(x); }
+float canon_lgammaf(float x) { return canon::lgammaf(x); }
+float canon_tgammaf(float x) { return canon::tgammaf(x); }
+float canon_sinpif(float x) { return canon::sinpif(x); }
+float canon_cospif(float x) { return canon::cospif(x); }
+float canon_tanpif(float x) { return canon::tanpif(x); }
+float canon_asinpif(float x) { return canon::asinpif(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

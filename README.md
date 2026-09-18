@@ -42,8 +42,10 @@ double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
 `canon::sinhf`, `canon::coshf`, `canon::tanhf`, `canon::asinhf`,
 `canon::acoshf`, `canon::atanhf`, `canon::cbrtf`, `canon::hypotf`,
 `canon::expm1f`, `canon::log1pf`, `canon::log2f`, `canon::log10f`,
-`canon::exp2f`, `canon::exp10f`, `canon::sincosf`, `canon::rsqrtf`, and
-`canon::erff` are all real, correctly-rounded, bit-exact implementations
+`canon::exp2f`, `canon::exp10f`, `canon::sincosf`, `canon::rsqrtf`,
+`canon::erff`, `canon::erfcf`, `canon::lgammaf`, `canon::tgammaf`,
+`canon::sinpif`, `canon::cospif`, `canon::tanpif`, and `canon::asinpif`
+are all real, correctly-rounded, bit-exact implementations
 today — not a `<cmath>` wrapper. All but sqrt/sqrtf are vendored from the
 [CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT license,
 see `third_party/core-math/`); sqrt/sqrtf are bit-exact for free since
@@ -72,10 +74,12 @@ real; **v0.8 started single precision** with `sinf`/`cosf`/`sqrtf`/
 `expf`/`logf`/`powf`/`tanf` (49 functions real); **v0.9 added seven more**
 (`asinf`/`acosf`/`atanf`/`atan2f`/`sinhf`/`coshf`/`tanhf`, 56 real);
 **v0.10 added seven more** (`asinhf`/`acoshf`/`atanhf`/`cbrtf`/`hypotf`/
-`expm1f`/`log1pf`, 63 real); **v0.11 adds seven more**
-(`log2f`/`log10f`/`exp2f`/`exp10f`/`sincosf`/`rsqrtf`/`erff`, 70 real).
-v1 is the full function-by-function target list, with no exceptions
-carved out ahead of time: see [docs/scope.md](docs/scope.md).
+`expm1f`/`log1pf`, 63 real); **v0.11 added seven more**
+(`log2f`/`log10f`/`exp2f`/`exp10f`/`sincosf`/`rsqrtf`/`erff`, 70 real);
+**v0.12 adds seven more** (`erfcf`/`lgammaf`/`tgammaf`/`sinpif`/
+`cospif`/`tanpif`/`asinpif`, 77 real — one function short of v1). v1 is
+the full function-by-function target list, with no exceptions carved
+out ahead of time: see [docs/scope.md](docs/scope.md).
 
 ## Building
 

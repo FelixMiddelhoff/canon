@@ -91,6 +91,14 @@ int main() {
   assert(canon::rsqrtf(4.0f) == 0.5f);
   assert(canon::erff(0.0f) == 0.0f);
 
+  assert(canon::erfcf(0.0f) == 1.0f);
+  assert(canon::lgammaf(1.0f) == 0.0f);
+  assert(canon::tgammaf(1.0f) == 1.0f);
+  assert(canon::sinpif(0.0f) == 0.0f);
+  assert(canon::cospif(0.0f) == 1.0f);
+  assert(canon::tanpif(0.0f) == 0.0f);
+  assert(canon::asinpif(0.0f) == 0.0f);
+
   std::puts("test_scalar: ok");
   return 0;
 }

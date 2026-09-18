@@ -101,6 +101,14 @@ CANON_API void canon_sincosf(float x, float* s, float* c);
 CANON_API float canon_rsqrtf(float x);
 CANON_API float canon_erff(float x);
 
+CANON_API float canon_erfcf(float x);
+CANON_API float canon_lgammaf(float x);
+CANON_API float canon_tgammaf(float x);
+CANON_API float canon_sinpif(float x);
+CANON_API float canon_cospif(float x);
+CANON_API float canon_tanpif(float x);
+CANON_API float canon_asinpif(float x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

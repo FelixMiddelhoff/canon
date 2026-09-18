@@ -1,7 +1,7 @@
 # canon — cross-platform bit-exact math library.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.20)
-project(canon LANGUAGES C CXX VERSION 0.11.0)
+project(canon LANGUAGES C CXX VERSION 0.12.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -103,6 +103,13 @@ set(CANON_VENDOR_SOURCES
   third_party/core-math/sincosf/sincosf.c
   third_party/core-math/rsqrtf/rsqrtf.c
   third_party/core-math/erff/erff.c
+  third_party/core-math/erfcf/erfcf.c
+  third_party/core-math/lgammaf/lgammaf.c
+  third_party/core-math/tgammaf/tgammaf.c
+  third_party/core-math/sinpif/sinpif.c
+  third_party/core-math/cospif/cospif.c
+  third_party/core-math/tanpif/tanpif.c
+  third_party/core-math/asinpif/asinpif.c
 )
 add_library(canon_vendor OBJECT ${CANON_VENDOR_SOURCES})
 set_target_properties(canon_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)
@@ -113,6 +120,9 @@ if(MSVC)
   # never reads it back, so force-including a local definition ahead of
   # this one file is a real fix, not a workaround masking a bug.
   set_source_files_properties(third_party/core-math/lgamma/lgamma.c PROPERTIES
+    COMPILE_OPTIONS "/FI${CMAKE_CURRENT_SOURCE_DIR}/third_party/core-math/lgamma/signgam_compat.h")
+  # lgammaf.c (binary32) needs the exact same signgam fix.
+  set_source_files_properties(third_party/core-math/lgammaf/lgammaf.c PROPERTIES
     COMPILE_OPTIONS "/FI${CMAKE_CURRENT_SOURCE_DIR}/third_party/core-math/lgamma/signgam_compat.h")
 else()
   target_compile_options(canon_vendor PRIVATE
