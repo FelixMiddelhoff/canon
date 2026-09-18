@@ -39,6 +39,13 @@ double cr_exp2(double x);
 double cr_exp10(double x);
 void cr_sincos(double x, double* s, double* c);
 double cr_rsqrt(double x);
+double cr_erf(double x);
+double cr_erfc(double x);
+double cr_lgamma(double x);
+double cr_tgamma(double x);
+double cr_sinpi(double x);
+double cr_cospi(double x);
+double cr_tanpi(double x);
 }
 
 namespace canon {
@@ -73,5 +80,13 @@ double exp2(double x) { return cr_exp2(x); }
 double exp10(double x) { return cr_exp10(x); }
 void sincos(double x, double* s, double* c) { cr_sincos(x, s, c); }
 double rsqrt(double x) { return cr_rsqrt(x); }
+
+double erf(double x) { return cr_erf(x); }
+double erfc(double x) { return cr_erfc(x); }
+double lgamma(double x) { return cr_lgamma(x); }
+double tgamma(double x) { return cr_tgamma(x); }
+double sinpi(double x) { return cr_sinpi(x); }
+double cospi(double x) { return cr_cospi(x); }
+double tanpi(double x) { return cr_tanpi(x); }
 
 }  // namespace canon

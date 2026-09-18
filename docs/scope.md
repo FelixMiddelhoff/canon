@@ -51,16 +51,16 @@ Source of truth for what exists upstream: CORE-MATH's
 - [ ] `atanpi`
 - [x] `cbrt`
 - [x] `cosh`
-- [ ] `cospi`
-- [ ] `erf`
-- [ ] `erfc`
+- [x] `cospi`
+- [x] `erf`
+- [x] `erfc`
 - [x] `exp10`
 - [ ] `exp10m1`
 - [x] `exp2`
 - [ ] `exp2m1`
 - [x] `expm1`
 - [x] `hypot`
-- [ ] `lgamma`
+- [x] `lgamma`
 - [x] `log10`
 - [ ] `log10p1`
 - [x] `log1p`
@@ -69,11 +69,11 @@ Source of truth for what exists upstream: CORE-MATH's
 - [x] `rsqrt`
 - [x] `sincos`
 - [x] `sinh`
-- [ ] `sinpi`
+- [x] `sinpi`
 - [x] `tan`
 - [x] `tanh`
-- [ ] `tanpi`
-- [ ] `tgamma`
+- [x] `tanpi`
+- [x] `tgamma`
 
 ### Single precision (`binary32`) — every v0.1 + above function
 

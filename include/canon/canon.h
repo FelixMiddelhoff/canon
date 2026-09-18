@@ -52,6 +52,14 @@ CANON_API double canon_exp10(double x);
 CANON_API void canon_sincos(double x, double* s, double* c);
 CANON_API double canon_rsqrt(double x);
 
+CANON_API double canon_erf(double x);
+CANON_API double canon_erfc(double x);
+CANON_API double canon_lgamma(double x);
+CANON_API double canon_tgamma(double x);
+CANON_API double canon_sinpi(double x);
+CANON_API double canon_cospi(double x);
+CANON_API double canon_tanpi(double x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

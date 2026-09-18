@@ -57,6 +57,14 @@ int main() {
   }
   print_bits("rsqrt(2.0)", canon::rsqrt(2.0));
 
+  print_bits("erf(1.0)", canon::erf(1.0));
+  print_bits("erfc(1.0)", canon::erfc(1.0));
+  print_bits("lgamma(2.5)", canon::lgamma(2.5));
+  print_bits("tgamma(2.5)", canon::tgamma(2.5));
+  print_bits("sinpi(0.25)", canon::sinpi(0.25));
+  print_bits("cospi(0.25)", canon::cospi(0.25));
+  print_bits("tanpi(0.25)", canon::tanpi(0.25));
+
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
   // than the fixed left-to-right order canon::dot() promises. n=8 is

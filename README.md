@@ -31,10 +31,11 @@ double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
 `canon::atan2`, `canon::sinh`, `canon::cosh`, `canon::tanh`,
 `canon::asinh`, `canon::acosh`, `canon::atanh`, `canon::cbrt`,
 `canon::hypot`, `canon::expm1`, `canon::log1p`, `canon::log2`,
-`canon::log10`, `canon::exp2`, `canon::exp10`, `canon::sincos`, and
-`canon::rsqrt` are all real,
-correctly-rounded, bit-exact implementations today — not a `<cmath>`
-wrapper. All but sqrt are vendored from the
+`canon::log10`, `canon::exp2`, `canon::exp10`, `canon::sincos`,
+`canon::rsqrt`, `canon::erf`, `canon::erfc`, `canon::lgamma`,
+`canon::tgamma`, `canon::sinpi`, `canon::cospi`, and `canon::tanpi` are
+all real, correctly-rounded, bit-exact implementations today — not a
+`<cmath>` wrapper. All but sqrt are vendored from the
 [CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT license,
 see `third_party/core-math/`); sqrt is bit-exact for free since IEEE754
 mandates correctly-rounded hardware sqrt.
@@ -53,9 +54,11 @@ the rest of the toolchain.
 **v0.1 shipped six double-precision functions; v0.2 added seven more**
 (`tan`/`asin`/`acos`/`atan`/`atan2`/`sinh`/`cosh`); **v0.3 added seven
 more** (`tanh`/`asinh`/`acosh`/`atanh`/`cbrt`/`hypot`/`expm1`); **v0.4
-adds seven more** (`log1p`/`log2`/`log10`/`exp2`/`exp10`/`sincos`/
-`rsqrt`). v1 is the full function-by-function target list, with no
-exceptions carved out ahead of time: see [docs/scope.md](docs/scope.md).
+added seven more** (`log1p`/`log2`/`log10`/`exp2`/`exp10`/`sincos`/
+`rsqrt`); **v0.5 adds seven more** (`erf`/`erfc`/`lgamma`/`tgamma`/
+`sinpi`/`cospi`/`tanpi`). v1 is the full function-by-function target
+list, with no exceptions carved out ahead of time: see
+[docs/scope.md](docs/scope.md).
 
 ## Building
 

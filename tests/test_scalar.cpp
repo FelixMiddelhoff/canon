@@ -37,6 +37,14 @@ int main() {
   }
   assert(canon::rsqrt(4.0) == 0.5);
 
+  assert(canon::erf(0.0) == 0.0);
+  assert(canon::erfc(0.0) == 1.0);
+  assert(canon::lgamma(1.0) == 0.0);
+  assert(canon::tgamma(1.0) == 1.0);
+  assert(canon::sinpi(0.0) == 0.0);
+  assert(canon::cospi(0.0) == 1.0);
+  assert(canon::tanpi(0.0) == 0.0);
+
   std::puts("test_scalar: ok");
   return 0;
 }

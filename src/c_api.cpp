@@ -37,6 +37,14 @@ double canon_exp10(double x) { return canon::exp10(x); }
 void canon_sincos(double x, double* s, double* c) { canon::sincos(x, s, c); }
 double canon_rsqrt(double x) { return canon::rsqrt(x); }
 
+double canon_erf(double x) { return canon::erf(x); }
+double canon_erfc(double x) { return canon::erfc(x); }
+double canon_lgamma(double x) { return canon::lgamma(x); }
+double canon_tgamma(double x) { return canon::tgamma(x); }
+double canon_sinpi(double x) { return canon::sinpi(x); }
+double canon_cospi(double x) { return canon::cospi(x); }
+double canon_tanpi(double x) { return canon::tanpi(x); }
+
 uint64_t canon_hash_bits(const double* values, size_t n) { return canon::hash_bits(values, n); }
 const char* canon_version_string() { return canon::version_string(); }
 

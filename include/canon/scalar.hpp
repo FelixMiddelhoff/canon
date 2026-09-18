@@ -43,4 +43,12 @@ double exp10(double x);
 void sincos(double x, double* s, double* c);
 double rsqrt(double x);
 
+double erf(double x);
+double erfc(double x);
+double lgamma(double x);
+double tgamma(double x);
+double sinpi(double x);
+double cospi(double x);
+double tanpi(double x);
+
 }  // namespace canon
