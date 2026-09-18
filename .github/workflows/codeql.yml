@@ -1,0 +1,35 @@
+# canon — CodeQL static analysis.
+# SPDX-License-Identifier: MIT
+name: codeql
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    - cron: '31 3 * * 1' # Mondays, 03:31 UTC — off the hour
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: c-cpp
+          queries: security-and-quality
+
+      - name: Configure
+        run: cmake -S . -B build -DCANON_BUILD_TESTS=OFF -DCANON_BUILD_BENCH=OFF -DCANON_BUILD_EXAMPLES=OFF
+      - name: Build
+        run: cmake --build build --target canon
+
+      - uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:c-cpp"

@@ -1,0 +1,5 @@
+foreach(test_name IN ITEMS test_scalar test_vecmat test_bitexact_golden)
+  add_executable(${test_name} ${test_name}.cpp)
+  target_link_libraries(${test_name} PRIVATE canon::canon)
+  add_test(NAME ${test_name} COMMAND ${test_name})
+endforeach()

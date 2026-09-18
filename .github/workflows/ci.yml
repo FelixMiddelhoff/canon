@@ -1,0 +1,93 @@
+name: ci
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  # x86-64 + ARM64, all three OSes, and both GCC and Clang explicitly on
+  # Linux — the whole point of canon is that these legs agree bit-for-bit
+  # (see the bitexact-digest job below), so the matrix has to actually span
+  # the architectures/compilers the README promises, not just the OSes.
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86-64
+            cc: gcc
+            cxx: g++
+          - os: ubuntu-latest
+            arch: x86-64
+            cc: clang
+            cxx: clang++
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            cc: gcc
+            cxx: g++
+          - os: windows-latest
+            arch: x86-64
+            cc: cl
+            cxx: cl
+          - os: macos-13
+            arch: x86-64
+            cc: clang
+            cxx: clang++
+          - os: macos-14
+            arch: arm64
+            cc: clang
+            cxx: clang++
+        config: [Release, Debug]
+    runs-on: ${{ matrix.os }}
+    env:
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure
+        shell: bash
+        run: |
+          if [ "${{ matrix.cc }}" = "cl" ]; then
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON
+          else
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON \
+              -DCMAKE_C_COMPILER=${{ matrix.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
+          fi
+      - name: Build
+        run: cmake --build build --config ${{ matrix.config }}
+      - name: Test
+        run: ctest --test-dir build -C ${{ matrix.config }} --output-on-failure
+      - name: Cross-platform bit-exact digest (informational)
+        # Not a pass/fail gate yet — scalar.cpp is still the <cmath>
+        # placeholder (src/scalar.cpp), which is NOT guaranteed bit-exact
+        # across these legs. This step exists so that gap is visible in
+        # every run's log, and flips into a real diff-and-fail gate the
+        # moment the correctly-rounded implementation lands
+        # (canon-planning/canon-bitexact-plan.md).
+        shell: bash
+        run: |
+          BIN=""
+          for c in "build/tests/test_bitexact_golden" "build/tests/test_bitexact_golden.exe" \
+                   "build/tests/${{ matrix.config }}/test_bitexact_golden" \
+                   "build/tests/${{ matrix.config }}/test_bitexact_golden.exe"; do
+            if [ -f "$c" ]; then BIN="$c"; break; fi
+          done
+          "$BIN" || true
+
+  sanitizers:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [address, undefined]
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure
+        run: |
+          cmake -S . -B build-san -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_CXX_FLAGS="-fsanitize=${{ matrix.sanitizer }} -fno-omit-frame-pointer"
+      - name: Build
+        run: cmake --build build-san
+      - name: Test
+        run: ctest --test-dir build-san --output-on-failure
