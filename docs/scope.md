@@ -1,9 +1,9 @@
 # Function scope
 
-Referenced from `include/canon/scalar.hpp`. This is the explicit,
-authoritative list of what canon covers — not a vague "rest of libm."
+Referenced from `include/isobit/scalar.hpp`. This is the explicit,
+authoritative list of what isobit covers — not a vague "rest of libm."
 
-canon's scope is every function [CORE-MATH](https://core-math.gitlabpages.inria.fr/)
+isobit's scope is every function [CORE-MATH](https://core-math.gitlabpages.inria.fr/)
 provides a correctly-rounded implementation for, in both `binary64`
 (double) and `binary32` (float): source of truth is CORE-MATH's
 `src/binary64/` and `src/binary32/` directories. Each is vendored,
@@ -35,7 +35,7 @@ Same functions, `f` suffix, matching CORE-MATH's own naming
 `lgammaf`, `tgammaf`, `sinpif`, `cospif`, `tanpif`, `asinpif`,
 `acospif`, `atanpif`, `atan2pif`, `exp2m1f`, `exp10m1f`, `log2p1f`,
 `log10p1f`) — not C++ overloads of the double-precision names, since the
-C ABI (`canon_sin` vs. `canon_sinf`) can't overload either.
+C ABI (`isobit_sin` vs. `isobit_sinf`) can't overload either.
 
 `sqrtf` is bit-exact for free the same way `sqrt` is; every other f32
 function is vendored from CORE-MATH.
@@ -51,8 +51,8 @@ only the file inside carries the `f` suffix.
    files live per-function-directory, not shared — check what the file
    actually `#include`s).
 2. Vendor into `third_party/core-math/<name>/`, add to
-   `CANON_VENDOR_SOURCES` in `CMakeLists.txt`.
-3. Wire into `canon::<name>` in `src/scalar.cpp` (a two-argument function
+   `ISOBIT_VENDOR_SOURCES` in `CMakeLists.txt`.
+3. Wire into `isobit::<name>` in `src/scalar.cpp` (a two-argument function
    like `atan2`/`pow`/`hypot` takes two parameters; `sincos` takes two
    output pointers instead of returning a value).
 4. Verify against a true correctly-rounded reference (`mpmath` at high
@@ -79,6 +79,6 @@ only the file inside carries the `f` suffix.
   `fmax`, `fdim`, `isnan`, `isinf`, `isfinite`, `signbit`. `fma` is also
   out of scope: correctly-rounded fused multiply-add is already an
   IEEE754-mandated hardware primitive where the target has one, the same
-  reasoning as `sqrt`, but canon does not currently wrap it — a caller
+  reasoning as `sqrt`, but isobit does not currently wrap it — a caller
   needing a portable bit-exact `fma` should use the compiler/hardware
-  intrinsic directly rather than assume canon covers it.
+  intrinsic directly rather than assume isobit covers it.

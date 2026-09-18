@@ -1,18 +1,18 @@
 # C ABI stability policy
 
-`include/canon/canon.h` is the C ABI surface. Until `1.0.0`, it can break
+`include/isobit/isobit.h` is the C ABI surface. Until `1.0.0`, it can break
 between minor versions — every break must be called out in the release
 notes. From `1.0.0` on:
 
 - **Breaking** (major version bump): removing or renaming an exported
   function, changing a function's signature or return type, changing the
   precision guarantee of an existing function (e.g. a bug-fixed
-  `canon_sin` that now returns different bits for the same input is an ABI
+  `isobit_sin` that now returns different bits for the same input is an ABI
   *and* a behavioral break — treat a correctness fix that changes output
   the same as a signature change for versioning purposes, since
   bit-exactness is the entire contract).
 - **Non-breaking** (minor version bump): adding a new exported function.
-- **Patch version**: reserved — canon has no behavior-preserving-but-
+- **Patch version**: reserved — isobit has no behavior-preserving-but-
   internal-only category of fix, because bit output *is* the ABI. If output
   bits change at all, it's at minimum a minor bump with a changelog entry.
 

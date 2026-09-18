@@ -1,7 +1,7 @@
 #pragma once
 
 // Correctly-rounded scalar math, guaranteed bit-identical across x86-64,
-// ARM64, GCC/Clang/MSVC, at every optimization level, given CANON's
+// ARM64, GCC/Clang/MSVC, at every optimization level, given ISOBIT's
 // required compile flags (-ffp-contract=off / -fp:strict — see
 // CMakeLists.txt). Every function here trades platform libm's "usually
 // close, sometimes off by 1 ULP and never the same 1 ULP twice" for a fixed,
@@ -9,7 +9,7 @@
 //
 // Full function list and what's intentionally out of scope: docs/scope.md.
 
-namespace canon {
+namespace isobit {
 
 double sin(double x);
 double cos(double x);
@@ -62,7 +62,7 @@ double log10p1(double x);
 // Single precision (binary32). Named with the libm `f` suffix (sinf, cosf,
 // ...) rather than overloaded on the double-precision names above, matching
 // both CORE-MATH's own src/binary32/ naming and the C ABI's inability to
-// overload (canon_sin vs canon_sinf).
+// overload (isobit_sin vs isobit_sinf).
 float sinf(float x);
 float cosf(float x);
 float sqrtf(float x);
@@ -111,4 +111,4 @@ float exp10m1f(float x);
 float log2p1f(float x);
 float log10p1f(float x);
 
-}  // namespace canon
+}  // namespace isobit

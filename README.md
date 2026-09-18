@@ -1,4 +1,4 @@
-# canon
+# isobit
 
 Cross-platform bit-exact math library. Same input, same bits, every
 platform.
@@ -12,22 +12,22 @@ inputs. That's invisible for most code and fatal for anything that needs
 bit-exact reproducibility across machines: deterministic replay, lockstep
 simulation, financial/scientific audit trails.
 
-canon replaces the platform-dependent subset of libm with a fixed,
+isobit replaces the platform-dependent subset of libm with a fixed,
 correctly-rounded implementation, plus fixed-reduction-order vector/matrix
 ops (SIMD-friendly reductions reorder summation, which also changes the
 last bit).
 
 ```cpp
-double a = canon::sin(x);        // same 64 bits on x86-64, ARM64, any compiler
-double d = canon::dot(v1, v2, 3); // fixed left-to-right summation order
+double a = isobit::sin(x);        // same 64 bits on x86-64, ARM64, any compiler
+double d = isobit::dot(v1, v2, 3); // fixed left-to-right summation order
 ```
 
 ## Function coverage
 
 Every function CORE-MATH provides a correctly-rounded implementation
 for, at both double and single precision — the full list is in
-[docs/scope.md](docs/scope.md). All of them (`canon::sin`, `canon::pow`,
-`canon::erff`, `canon::atan2pif`, and everything else in that list) are
+[docs/scope.md](docs/scope.md). All of them (`isobit::sin`, `isobit::pow`,
+`isobit::erff`, `isobit::atan2pif`, and everything else in that list) are
 real, correctly-rounded, bit-exact implementations — not `<cmath>`
 wrappers. All but `sqrt`/`sqrtf` are vendored from the
 [CORE-MATH project](https://core-math.gitlabpages.inria.fr/) (MIT
@@ -44,9 +44,9 @@ hardware or trivial bit manipulation, not a correctly-rounding problem:
 `nextafter`, `nexttoward`, `fmin`, `fmax`, `fdim`, `isnan`, `isinf`,
 `isfinite`, `signbit`. Also out of scope: `long double`, f16/bf16,
 complex-number math, and `fma` — correctly-rounded FMA is an
-IEEE754-mandated hardware primitive where the target has one, but canon
+IEEE754-mandated hardware primitive where the target has one, but isobit
 doesn't currently wrap it; use the compiler/hardware intrinsic directly
-rather than assume canon covers it. Full reasoning in
+rather than assume isobit covers it. Full reasoning in
 [docs/scope.md](docs/scope.md).
 
 ## Verification
@@ -70,7 +70,7 @@ toolchain.
 ## Building
 
 ```bash
-cmake -S . -B build -DCANON_SHARED=ON
+cmake -S . -B build -DISOBIT_SHARED=ON
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
@@ -84,7 +84,7 @@ cmake -S . -B build -G Ninja -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=cl
 
 ## C ABI
 
-`include/canon/canon.h` exposes the scalar + hash surface for FFI.
+`include/isobit/isobit.h` exposes the scalar + hash surface for FFI.
 Stability policy: [docs/abi-policy.md](docs/abi-policy.md).
 
 ## License

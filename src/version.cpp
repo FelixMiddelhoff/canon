@@ -1,7 +1,7 @@
-#include "canon/version.hpp"
+#include "isobit/version.hpp"
 
-namespace canon {
+namespace isobit {
 
 const char* version_string() { return "0.12.0"; }
 
-}  // namespace canon
+}  // namespace isobit

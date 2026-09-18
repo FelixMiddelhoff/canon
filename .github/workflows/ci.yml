@@ -6,7 +6,7 @@ on:
 
 jobs:
   # x86-64 + ARM64, all three OSes, and both GCC and Clang explicitly on
-  # Linux — the whole point of canon is that these legs agree bit-for-bit
+  # Linux — the whole point of isobit is that these legs agree bit-for-bit
   # (see the bitexact-digest job below), so the matrix has to actually span
   # the architectures/compilers the README promises, not just the OSes.
   build:
@@ -96,10 +96,10 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.cc }}" = "clang-cl" ]; then
-            cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON \
+            cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DISOBIT_SHARED=ON \
               -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
           else
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DCANON_SHARED=ON \
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.config }} -DISOBIT_SHARED=ON \
               -DCMAKE_C_COMPILER=${{ matrix.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
           fi
       - name: Build

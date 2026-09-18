@@ -1,4 +1,4 @@
-# canon — CodeQL static analysis.
+# isobit — CodeQL static analysis.
 # SPDX-License-Identifier: MIT
 name: codeql
 
@@ -26,9 +26,9 @@ jobs:
           queries: security-and-quality
 
       - name: Configure
-        run: cmake -S . -B build -DCANON_BUILD_TESTS=OFF -DCANON_BUILD_BENCH=OFF -DCANON_BUILD_EXAMPLES=OFF
+        run: cmake -S . -B build -DISOBIT_BUILD_TESTS=OFF -DISOBIT_BUILD_BENCH=OFF -DISOBIT_BUILD_EXAMPLES=OFF
       - name: Build
-        run: cmake --build build --target canon
+        run: cmake --build build --target isobit
 
       - uses: github/codeql-action/analyze@v3
         with:

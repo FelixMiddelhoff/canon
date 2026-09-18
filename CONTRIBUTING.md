@@ -1,9 +1,9 @@
-# Contributing to canon
+# Contributing to isobit
 
 ## Building and testing
 
 ```bash
-cmake -S . -B build -DCANON_SHARED=ON
+cmake -S . -B build -DISOBIT_SHARED=ON
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
@@ -11,7 +11,7 @@ ctest --test-dir build --output-on-failure
 Format before committing:
 
 ```bash
-clang-format -i include/canon/*.hpp src/*.cpp tests/*.cpp examples/*.cpp
+clang-format -i include/isobit/*.hpp src/*.cpp tests/*.cpp examples/*.cpp
 ```
 
 `.clang-format` and `.clang-tidy` at the repo root pin the style/lint rules;
@@ -38,7 +38,7 @@ for it.
 2. Keep PRs scoped to one change.
 3. CI must pass (build matrix + sanitizers) before merge. A bit-exact
    digest mismatch across matrix legs is a real bug, not CI flakiness.
-4. New public API (`include/canon/`) needs a test and a README update in
+4. New public API (`include/isobit/`) needs a test and a README update in
    the same PR — docs and code change together, not in a follow-up.
 
 ## Code of Conduct

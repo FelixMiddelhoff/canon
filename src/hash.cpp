@@ -1,8 +1,8 @@
-#include "canon/hash.hpp"
+#include "isobit/hash.hpp"
 
 #include <cstring>
 
-namespace canon {
+namespace isobit {
 
 namespace {
 
@@ -26,4 +26,4 @@ std::uint64_t hash_bits(const double* values, std::size_t n) {
   return h;
 }
 
-}  // namespace canon
+}  // namespace isobit

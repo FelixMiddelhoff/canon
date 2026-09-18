@@ -1,7 +1,7 @@
-# canon — cross-platform bit-exact math library.
+# isobit — cross-platform bit-exact math library.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.20)
-project(canon LANGUAGES C CXX VERSION 0.12.0)
+project(isobit LANGUAGES C CXX VERSION 0.12.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -11,17 +11,17 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
 # Standalone build vs. consumed as a subdirectory.
-set(CANON_STANDALONE OFF)
+set(ISOBIT_STANDALONE OFF)
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-  set(CANON_STANDALONE ON)
+  set(ISOBIT_STANDALONE ON)
 endif()
 
-option(CANON_SHARED         "Also build a shared library"  OFF)
-option(CANON_BUILD_TESTS    "Build the test suite"         ${CANON_STANDALONE})
-option(CANON_BUILD_BENCH    "Build the perf bench"         ${CANON_STANDALONE})
-option(CANON_BUILD_EXAMPLES "Build the example programs"   ${CANON_STANDALONE})
+option(ISOBIT_SHARED         "Also build a shared library"  OFF)
+option(ISOBIT_BUILD_TESTS    "Build the test suite"         ${ISOBIT_STANDALONE})
+option(ISOBIT_BUILD_BENCH    "Build the perf bench"         ${ISOBIT_STANDALONE})
+option(ISOBIT_BUILD_EXAMPLES "Build the example programs"   ${ISOBIT_STANDALONE})
 
-set(CANON_SOURCES
+set(ISOBIT_SOURCES
   src/version.cpp
   src/scalar.cpp
   src/vecmat.cpp
@@ -34,7 +34,7 @@ set(CANON_SOURCES
 # additionally need __int128 for their accurate fallback path. Neither is
 # available in cl.exe, hence the Windows CI leg uses clang-cl (see
 # .github/workflows/ci.yml) rather than dropping MSVC support.
-set(CANON_VENDOR_SOURCES
+set(ISOBIT_VENDOR_SOURCES
   third_party/core-math/sin/sin.c
   third_party/core-math/cos/cos.c
   third_party/core-math/exp/exp.c
@@ -118,12 +118,12 @@ set(CANON_VENDOR_SOURCES
   third_party/core-math/log2p1f/log2p1f.c
   third_party/core-math/log10p1f/log10p1f.c
 )
-add_library(canon_vendor OBJECT ${CANON_VENDOR_SOURCES})
-set_target_properties(canon_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)
+add_library(isobit_vendor OBJECT ${ISOBIT_VENDOR_SOURCES})
+set_target_properties(isobit_vendor PROPERTIES POSITION_INDEPENDENT_CODE ON)
 if(MSVC)
-  target_compile_options(canon_vendor PRIVATE /fp:strict)
+  target_compile_options(isobit_vendor PRIVATE /fp:strict)
   # lgamma.c reads/writes the POSIX/XSI `signgam` global (glibc/BSD libm
-  # declare it in <math.h>); MSVC/clang-cl's headers don't. canon::lgamma
+  # declare it in <math.h>); MSVC/clang-cl's headers don't. isobit::lgamma
   # never reads it back, so force-including a local definition ahead of
   # this one file is a real fix, not a workaround masking a bug.
   set_source_files_properties(third_party/core-math/lgamma/lgamma.c PROPERTIES
@@ -132,62 +132,62 @@ if(MSVC)
   set_source_files_properties(third_party/core-math/lgammaf/lgammaf.c PROPERTIES
     COMPILE_OPTIONS "/FI${CMAKE_CURRENT_SOURCE_DIR}/third_party/core-math/lgamma/signgam_compat.h")
 else()
-  target_compile_options(canon_vendor PRIVATE
+  target_compile_options(isobit_vendor PRIVATE
     -ffp-contract=off -fno-fast-math -frounding-math)
 endif()
 
-add_library(canon STATIC ${CANON_SOURCES} $<TARGET_OBJECTS:canon_vendor>)
-add_library(canon::canon ALIAS canon)
-target_include_directories(canon PUBLIC
+add_library(isobit STATIC ${ISOBIT_SOURCES} $<TARGET_OBJECTS:isobit_vendor>)
+add_library(isobit::isobit ALIAS isobit)
+target_include_directories(isobit PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
 )
-target_compile_features(canon PUBLIC cxx_std_17)
+target_compile_features(isobit PUBLIC cxx_std_17)
 
 # Bit-exactness is the entire point: never let the compiler contract
 # multiply-add into FMA behind our back, never let it assume associative
 # reordering of float ops. Both silently change the last bit(s).
 if(MSVC)
-  target_compile_options(canon PRIVATE /W4 /permissive- /fp:strict)
+  target_compile_options(isobit PRIVATE /W4 /permissive- /fp:strict)
 else()
-  target_compile_options(canon PRIVATE -Wall -Wextra -Wpedantic
+  target_compile_options(isobit PRIVATE -Wall -Wextra -Wpedantic
     -ffp-contract=off -fno-fast-math -frounding-math)
 endif()
 
-if(CANON_SHARED)
-  add_library(canon_shared SHARED ${CANON_SOURCES} $<TARGET_OBJECTS:canon_vendor>)
-  add_library(canon::shared ALIAS canon_shared)
-  set_target_properties(canon_shared PROPERTIES OUTPUT_NAME canon)
+if(ISOBIT_SHARED)
+  add_library(isobit_shared SHARED ${ISOBIT_SOURCES} $<TARGET_OBJECTS:isobit_vendor>)
+  add_library(isobit::shared ALIAS isobit_shared)
+  set_target_properties(isobit_shared PROPERTIES OUTPUT_NAME isobit)
   if(WIN32)
     # On Windows the shared lib's import library and the static lib both
-    # want to be canon.lib in the same build tree — same extension, unlike
-    # Unix's libcanon.so vs libcanon.a. Give the import lib a distinct name;
+    # want to be isobit.lib in the same build tree — same extension, unlike
+    # Unix's libisobit.so vs libisobit.a. Give the import lib a distinct name;
     # the DLL itself (RUNTIME_OUTPUT_NAME, unaffected here) still ends up
-    # canon.dll.
-    set_target_properties(canon_shared PROPERTIES ARCHIVE_OUTPUT_NAME canon_dll)
+    # isobit.dll.
+    set_target_properties(isobit_shared PROPERTIES ARCHIVE_OUTPUT_NAME isobit_dll)
   endif()
-  target_include_directories(canon_shared PUBLIC
+  target_include_directories(isobit_shared PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
   )
-  target_compile_features(canon_shared PUBLIC cxx_std_17)
+  target_compile_features(isobit_shared PUBLIC cxx_std_17)
   if(MSVC)
-    target_compile_options(canon_shared PRIVATE /fp:strict)
+    target_compile_options(isobit_shared PRIVATE /fp:strict)
   else()
-    target_compile_options(canon_shared PRIVATE -ffp-contract=off -fno-fast-math -frounding-math)
+    target_compile_options(isobit_shared PRIVATE -ffp-contract=off -fno-fast-math -frounding-math)
   endif()
-  target_compile_definitions(canon_shared PRIVATE CANON_BUILD_SHARED PUBLIC CANON_SHARED)
+  target_compile_definitions(isobit_shared PRIVATE ISOBIT_BUILD_SHARED PUBLIC ISOBIT_SHARED)
 endif()
 
-if(CANON_BUILD_TESTS)
+if(ISOBIT_BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
 endif()
 
-if(CANON_BUILD_BENCH)
+if(ISOBIT_BUILD_BENCH)
   add_subdirectory(bench)
 endif()
 
-if(CANON_BUILD_EXAMPLES)
+if(ISOBIT_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()

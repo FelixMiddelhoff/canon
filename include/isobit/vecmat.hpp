@@ -2,7 +2,7 @@
 
 #include <cstddef>
 
-namespace canon {
+namespace isobit {
 
 // Fixed left-to-right reduction order (never a tree/pairwise reduction, never
 // SIMD-horizontal-add) so the result is identical regardless of vector width
@@ -23,4 +23,4 @@ struct Mat4 {
 
 Mat4 multiply(const Mat4& a, const Mat4& b);
 
-}  // namespace canon
+}  // namespace isobit

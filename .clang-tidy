@@ -9,4 +9,4 @@ Checks: >
   -cppcoreguidelines-pro-bounds-pointer-arithmetic,
   -cppcoreguidelines-owning-memory
 WarningsAsErrors: ''
-HeaderFilterRegex: 'include/canon/.*'
+HeaderFilterRegex: 'include/isobit/.*'

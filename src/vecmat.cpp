@@ -1,8 +1,8 @@
-#include "canon/vecmat.hpp"
+#include "isobit/vecmat.hpp"
 
-#include "canon/scalar.hpp"
+#include "isobit/scalar.hpp"
 
-namespace canon {
+namespace isobit {
 
 double dot(const double* a, const double* b, std::size_t n) {
   double sum = 0.0;
@@ -31,4 +31,4 @@ Mat4 multiply(const Mat4& a, const Mat4& b) {
   return out;
 }
 
-}  // namespace canon
+}  // namespace isobit

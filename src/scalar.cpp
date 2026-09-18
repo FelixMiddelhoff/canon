@@ -1,10 +1,10 @@
-#include "canon/scalar.hpp"
+#include "isobit/scalar.hpp"
 
 #include <cmath>
 
 // Every function below is vendored from CORE-MATH (MIT license,
 // third_party/core-math/), correctly-rounded and bit-exact across
-// x86-64/ARM64 x GCC/Clang/clang-cl given canon's required compile flags,
+// x86-64/ARM64 x GCC/Clang/clang-cl given isobit's required compile flags,
 // except sqrt/sqrtf (see below). Windows uses clang-cl, not cl.exe — see
 // CMakeLists.txt / ci.yml — since the vendored sources need GNU C
 // extensions and, for some functions, __int128 or the POSIX `signgam`
@@ -98,7 +98,7 @@ float cr_log2p1f(float x);
 float cr_log10p1f(float x);
 }
 
-namespace canon {
+namespace isobit {
 
 double sin(double x) { return cr_sin(x); }
 double cos(double x) { return cr_cos(x); }
@@ -196,4 +196,4 @@ float exp10m1f(float x) { return cr_exp10m1f(x); }
 float log2p1f(float x) { return cr_log2p1f(x); }
 float log10p1f(float x) { return cr_log10p1f(x); }
 
-}  // namespace canon
+}  // namespace isobit

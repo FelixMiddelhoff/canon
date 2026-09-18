@@ -1,1 +1,1 @@
-# Perf bench: measures canon:: functions against the platform's own libm.
+# Perf bench: measures isobit:: functions against the platform's own libm.
