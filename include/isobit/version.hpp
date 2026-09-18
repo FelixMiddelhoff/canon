@@ -2,8 +2,8 @@
 
 namespace isobit {
 
-constexpr int kVersionMajor = 0;
-constexpr int kVersionMinor = 12;
+constexpr int kVersionMajor = 1;
+constexpr int kVersionMinor = 0;
 constexpr int kVersionPatch = 0;
 
 const char* version_string();

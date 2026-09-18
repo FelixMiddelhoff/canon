@@ -72,7 +72,19 @@ Windows builds use clang-cl, not cl.exe: the vendored CORE-MATH sources
 them and stays MSVC-ABI-compatible for linking against the rest of the
 toolchain.
 
-## Building
+## Installing prebuilt binaries
+
+- **.NET**: `dotnet add package Isobit` — native binaries for win-x64,
+  linux-x64, linux-arm64, and osx-arm64, resolved automatically per
+  runtime identifier; `DllImport("isobit")` against the C ABI.
+- **Anything else**: grab the platform zip (binary + `isobit.h` +
+  `LICENSE`) from the [GitHub Releases](../../releases) page.
+
+Both are built by [`.github/workflows/release.yml`](.github/workflows/release.yml)
+from the same source every tagged release — no separately-maintained
+build.
+
+## Building from source
 
 ```bash
 cmake -S . -B build -DISOBIT_SHARED=ON

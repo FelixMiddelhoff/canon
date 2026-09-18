@@ -2,6 +2,6 @@
 
 namespace isobit {
 
-const char* version_string() { return "0.12.0"; }
+const char* version_string() { return "1.0.0"; }
 
 }  // namespace isobit
