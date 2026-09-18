@@ -104,6 +104,21 @@ Repeats the pattern established for sin/cos/exp/log/pow:
    it, that is a blocker to resolve for real (as clang-cl was for
    log/pow's `__int128`), not a reason to skip the function.
 
+## v1 tag gate — all four required, no exceptions
+
+1. All functions above vendored and real.
+2. Every function has test coverage (bit-exact golden entry at minimum;
+   functions with distinct edge cases — domain errors, poles, special
+   values — get their own assertions too).
+3. CI passes for real across the full matrix — confirmed via the actual
+   run (`gh run view`, job count), not just "the workflow file looks
+   right." (A matrix-configuration bug once made CI silently test one leg
+   twice instead of all twelve — see `.github/workflows/ci.yml`'s
+   comment on `matrix.include` for what to watch for.)
+4. **CodeQL ("Security and quality") has zero findings.** Not advisory
+   for the 1.0 tag specifically — a hard precondition. Anything flagged
+   gets fixed or explicitly dismissed with a documented reason first.
+
 ## Out of scope forever (not v1, not planned)
 
 - Anything not double or single precision (no `long double`, no f16/bf16).
