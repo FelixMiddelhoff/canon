@@ -28,6 +28,14 @@ CANON_API double canon_exp(double x);
 CANON_API double canon_log(double x);
 CANON_API double canon_pow(double base, double exponent);
 
+CANON_API double canon_tan(double x);
+CANON_API double canon_asin(double x);
+CANON_API double canon_acos(double x);
+CANON_API double canon_atan(double x);
+CANON_API double canon_atan2(double y, double x);
+CANON_API double canon_sinh(double x);
+CANON_API double canon_cosh(double x);
+
 CANON_API uint64_t canon_hash_bits(const double* values, size_t n);
 CANON_API const char* canon_version_string(void);
 

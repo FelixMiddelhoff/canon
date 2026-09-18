@@ -19,4 +19,12 @@ double exp(double x);
 double log(double x);
 double pow(double base, double exponent);
 
+double tan(double x);
+double asin(double x);
+double acos(double x);
+double atan(double x);
+double atan2(double y, double x);
+double sinh(double x);
+double cosh(double x);
+
 }  // namespace canon

@@ -18,6 +18,13 @@ double cr_cos(double x);
 double cr_exp(double x);
 double cr_log(double x);
 double cr_pow(double x, double y);
+double cr_tan(double x);
+double cr_asin(double x);
+double cr_acos(double x);
+double cr_atan(double x);
+double cr_atan2(double y, double x);
+double cr_sinh(double x);
+double cr_cosh(double x);
 }
 
 namespace canon {
@@ -28,5 +35,13 @@ double sqrt(double x) { return std::sqrt(x); }
 double exp(double x) { return cr_exp(x); }
 double log(double x) { return cr_log(x); }
 double pow(double base, double exponent) { return cr_pow(base, exponent); }
+
+double tan(double x) { return cr_tan(x); }
+double asin(double x) { return cr_asin(x); }
+double acos(double x) { return cr_acos(x); }
+double atan(double x) { return cr_atan(x); }
+double atan2(double y, double x) { return cr_atan2(y, x); }
+double sinh(double x) { return cr_sinh(x); }
+double cosh(double x) { return cr_cosh(x); }
 
 }  // namespace canon

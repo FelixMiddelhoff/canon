@@ -28,6 +28,13 @@ int main() {
   print_bits("log(2.0)", canon::log(2.0));
   print_bits("pow(1.0001,1000.0)", canon::pow(1.0001, 1000.0));
   print_bits("sqrt(2.0)", canon::sqrt(2.0));
+  print_bits("tan(1.0)", canon::tan(1.0));
+  print_bits("asin(0.5)", canon::asin(0.5));
+  print_bits("acos(0.5)", canon::acos(0.5));
+  print_bits("atan(1.0)", canon::atan(1.0));
+  print_bits("atan2(1.0,2.0)", canon::atan2(1.0, 2.0));
+  print_bits("sinh(1.0)", canon::sinh(1.0));
+  print_bits("cosh(1.0)", canon::cosh(1.0));
 
   // Reduction-order-sensitive values: mixing large and small magnitudes
   // means a pairwise/tree/SIMD-horizontal sum would round differently
