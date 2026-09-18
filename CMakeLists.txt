@@ -1,7 +1,7 @@
 # isobit — cross-platform bit-exact math library.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.20)
-project(isobit LANGUAGES C CXX VERSION 1.0.0)
+project(isobit LANGUAGES C CXX VERSION 1.0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

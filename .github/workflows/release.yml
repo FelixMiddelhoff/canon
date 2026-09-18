@@ -154,10 +154,12 @@ jobs:
               <RepositoryUrl>https://github.com/FelixMiddelhoff/isobit</RepositoryUrl>
               <PackageProjectUrl>https://github.com/FelixMiddelhoff/isobit</PackageProjectUrl>
               <PackageTags>native;interop;pinvoke;csharp;dotnet;math;libm;math-library;deterministic;deterministic-computing;reproducible-computing;cross-platform;bit-exact;correctly-rounded;ieee754;floating-point;numerical-computing;transcendental-functions;simulation;game-development</PackageTags>
+              <PackageReadmeFile>README.md</PackageReadmeFile>
             </PropertyGroup>
             <ItemGroup>
               <None Include="runtimes/**" Pack="true" PackagePath="runtimes" />
               <None Include="build/native/include/isobit/isobit.h" Pack="true" PackagePath="build/native/include/isobit/isobit.h" />
+              <None Include="README.md" Pack="true" PackagePath="README.md" />
             </ItemGroup>
           </Project>
           EOF
