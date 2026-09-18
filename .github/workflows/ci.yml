@@ -13,19 +13,47 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # Every (os, arch, cc, cxx) leg listed twice, once per config.
+        # NOTE: do NOT split this back into `include:` + a separate
+        # `config: [...]` array — GitHub Actions does not cross-multiply
+        # them when the include entries share no key with the array; it
+        # silently collapses the whole matrix down to just `config`'s two
+        # values, all using the LAST include entry's os/cc. That bug ran
+        # unnoticed for a few commits: every "cross-platform" CI pass was
+        # actually only macos-14/arm64/clang built twice. Explicit full
+        # list is more verbose but is the only way that's actually
+        # verified to cross-multiply correctly.
         include:
           - os: ubuntu-latest
             arch: x86-64
             cc: gcc
             cxx: g++
+            config: Release
+          - os: ubuntu-latest
+            arch: x86-64
+            cc: gcc
+            cxx: g++
+            config: Debug
           - os: ubuntu-latest
             arch: x86-64
             cc: clang
             cxx: clang++
+            config: Release
+          - os: ubuntu-latest
+            arch: x86-64
+            cc: clang
+            cxx: clang++
+            config: Debug
           - os: ubuntu-24.04-arm
             arch: arm64
             cc: gcc
             cxx: g++
+            config: Release
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            cc: gcc
+            cxx: g++
+            config: Debug
           - os: windows-latest
             arch: x86-64
             # clang-cl, not cl.exe: CORE-MATH's vendored sources
@@ -36,15 +64,32 @@ jobs:
             # the toolchain, so it's the real fix, not a workaround.
             cc: clang-cl
             cxx: clang-cl
+            config: Release
+          - os: windows-latest
+            arch: x86-64
+            cc: clang-cl
+            cxx: clang-cl
+            config: Debug
           - os: macos-13
             arch: x86-64
             cc: clang
             cxx: clang++
+            config: Release
+          - os: macos-13
+            arch: x86-64
+            cc: clang
+            cxx: clang++
+            config: Debug
           - os: macos-14
             arch: arm64
             cc: clang
             cxx: clang++
-        config: [Release, Debug]
+            config: Release
+          - os: macos-14
+            arch: arm64
+            cc: clang
+            cxx: clang++
+            config: Debug
     runs-on: ${{ matrix.os }}
     env:
       CC: ${{ matrix.cc }}
