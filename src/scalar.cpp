@@ -3,8 +3,7 @@
 #include <cmath>
 
 // PLACEHOLDER IMPLEMENTATION — wraps <cmath>, which is exactly the
-// cross-platform-divergent behavior canon exists to replace (see
-// canon-planning/canon-START-HERE.md, "what v0.1 actually is"). Kept here
+// cross-platform-divergent behavior canon exists to replace. Kept here
 // so the skeleton builds, links and has a passing test on every CI leg from
 // day one; the CI matrix's whole job is to prove, in public, the moment this
 // wrapper stops being bit-identical across x86-64/ARM64/GCC/Clang/MSVC —

@@ -44,8 +44,7 @@ no dependencies. Realistic concerns:
   adversary could construct a colliding input (integrity/signing use cases
   need a real cryptographic hash instead).
 - Until the correctly-rounded implementation replaces the `<cmath>`
-  placeholder in `src/scalar.cpp` (tracked in
-  `canon-planning/canon-START-HERE.md`), canon's bit-exactness guarantee
+  placeholder in `src/scalar.cpp`, canon's bit-exactness guarantee
   does **not** yet hold across platforms — treat pre-1.0 versions as
   "reproducible on one machine, not yet proven identical across all
   targets" and check the CI bit-exact digest job before relying on it.

@@ -63,8 +63,7 @@ jobs:
         # placeholder (src/scalar.cpp), which is NOT guaranteed bit-exact
         # across these legs. This step exists so that gap is visible in
         # every run's log, and flips into a real diff-and-fail gate the
-        # moment the correctly-rounded implementation lands
-        # (canon-planning/canon-bitexact-plan.md).
+        # moment the correctly-rounded implementation lands.
         shell: bash
         run: |
           BIN=""

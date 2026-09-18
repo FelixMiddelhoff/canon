@@ -25,7 +25,7 @@ Bit-exactness across platforms is the entire product. Any change to
 bit-exact digest job (`.github/workflows/ci.yml`) checked across *all*
 matrix legs, not just "it built on my machine." Never weaken those flags to
 fix a build error without understanding why they were required in the
-first place — see `canon-planning/canon-START-HERE.md`.
+first place.
 
 Do not add a new libm function without a `test_bitexact_golden.cpp` entry
 for it.
@@ -39,10 +39,7 @@ for it.
 3. CI must pass (build matrix + sanitizers) before merge. A bit-exact
    digest mismatch across matrix legs is a real bug, not CI flakiness.
 4. New public API (`include/canon/`) needs a test and a README update in
-   the same PR — see `canon-planning/canon-START-HERE.md`'s documentation
-   sync policy (that folder isn't part of this repo, ask the maintainer if
-   you don't have access to it; the short version is: docs and code change
-   together, not in a follow-up).
+   the same PR — docs and code change together, not in a follow-up.
 
 ## Code of Conduct
 

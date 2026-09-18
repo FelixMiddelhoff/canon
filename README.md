@@ -3,10 +3,6 @@
 Cross-platform bit-exact math library. Same input, same bits, every
 platform.
 
-Status: **pre-alpha skeleton**. See
-[`canon-planning/canon-START-HERE.md`](../canon-planning/canon-START-HERE.md)
-(sibling folder, not part of this repo) for the MVP plan and what's next.
-
 ## What this is
 
 glibc, macOS's libm, MSVC's CRT and ARM's libm each implement
@@ -34,8 +30,7 @@ skeleton builds and has a running test suite from day one. The CI matrix
 (`.github/workflows/ci.yml`) already runs a bit-exact digest job across
 x86-64/ARM64 × GCC/Clang/MSVC on every push — informational for now, it
 becomes a hard pass/fail gate once the correctly-rounded implementation
-lands. Track progress in
-[`canon-planning/canon-START-HERE.md`](../canon-planning/canon-START-HERE.md).
+lands.
 
 `canon::sqrt` is the one function that's bit-exact *today* — IEEE754
 mandates correctly-rounded hardware sqrt, so wrapping it needs no further
