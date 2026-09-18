@@ -1,0 +1,189 @@
+name: release
+on:
+  push:
+    tags: [ 'v*.*.*' ]
+  workflow_dispatch:
+
+jobs:
+  # Build the shared library for every platform isobit ships prebuilt
+  # binaries for. Same compiler choices as ci.yml (clang-cl on Windows for
+  # the vendored CORE-MATH sources' GNU extensions/__int128/signgam needs),
+  # Release only -- this isn't re-verifying bit-exactness (ci.yml's own
+  # bitexact-verify job already gates every push), just producing the
+  # binaries to ship. macos-13 is intentionally excluded, same reason
+  # ci.yml dropped it: that runner pool is too slow/unavailable to depend
+  # on; macos-14/arm64 covers macOS.
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+            cc: clang-cl
+            cxx: clang-cl
+            libname: isobit.dll
+          - os: ubuntu-latest
+            rid: linux-x64
+            cc: gcc
+            cxx: g++
+            libname: libisobit.so
+          - os: ubuntu-24.04-arm
+            rid: linux-arm64
+            cc: gcc
+            cxx: g++
+            libname: libisobit.so
+          - os: macos-14
+            rid: osx-arm64
+            cc: clang
+            cxx: clang++
+            libname: libisobit.dylib
+    runs-on: ${{ matrix.os }}
+    env:
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup MSVC dev environment
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+      - name: Setup Ninja
+        if: runner.os == 'Windows'
+        uses: seanmiddleditch/gha-setup-ninja@v6
+      - name: Configure
+        shell: bash
+        run: |
+          if [ "${{ matrix.cc }}" = "clang-cl" ]; then
+            cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DISOBIT_SHARED=ON \
+              -DISOBIT_BUILD_TESTS=OFF -DISOBIT_BUILD_EXAMPLES=OFF \
+              -DCMAKE_C_COMPILER=clang-cl -DCMAKE_CXX_COMPILER=clang-cl
+          else
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DISOBIT_SHARED=ON \
+              -DISOBIT_BUILD_TESTS=OFF -DISOBIT_BUILD_EXAMPLES=OFF \
+              -DCMAKE_C_COMPILER=${{ matrix.cc }} -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
+          fi
+      - name: Build
+        run: cmake --build build --config Release --target isobit_shared
+      - name: Locate and stage the shared library
+        shell: bash
+        run: |
+          mkdir -p staged
+          for c in "build/${{ matrix.libname }}" "build/Release/${{ matrix.libname }}"; do
+            if [ -f "$c" ]; then cp "$c" "staged/${{ matrix.libname }}"; break; fi
+          done
+          test -f "staged/${{ matrix.libname }}"
+      - name: Upload native binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.rid }}
+          path: staged/${{ matrix.libname }}
+
+  release:
+    needs: build
+    # workflow_dispatch (no tag) only exercises the build matrix above --
+    # useful to test the build without creating a release or publishing.
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # create the GitHub Release and upload assets
+      id-token: write   # OIDC token for NuGet Trusted Publishing
+    steps:
+      - uses: actions/checkout@v7
+      - name: Download all native binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: native-*
+          path: artifacts
+
+      - name: Determine version from tag
+        id: ver
+        shell: bash
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=0.0.0-dev" >> "$GITHUB_OUTPUT"
+          fi
+
+      # One zip per platform for direct download off the GitHub Release --
+      # the header + LICENSE so a C/C++ consumer has everything needed to
+      # link against the prebuilt binary without cloning the repo.
+      - name: Build per-platform release archives
+        shell: bash
+        run: |
+          mkdir -p release-assets
+          declare -A libname=( [win-x64]=isobit.dll [linux-x64]=libisobit.so [linux-arm64]=libisobit.so [osx-arm64]=libisobit.dylib )
+          for rid in win-x64 linux-x64 linux-arm64 osx-arm64; do
+            d="bundle-$rid"
+            mkdir -p "$d/include/isobit"
+            cp "artifacts/native-$rid/${libname[$rid]}" "$d/"
+            cp include/isobit/isobit.h "$d/include/isobit/"
+            cp LICENSE "$d/"
+            (cd "$d" && zip -r "../release-assets/isobit-${{ steps.ver.outputs.version }}-$rid.zip" .)
+          done
+          ls -la release-assets
+
+      # Native-only NuGet package: runtimes/<rid>/native/<libfile> plus the
+      # C header for native C++ consumers. .NET's own P/Invoke resolution
+      # (DllImport("isobit")) finds these automatically per-RID with no
+      # extra .targets file needed, since libname already matches each
+      # platform's default native naming convention (isobit.dll/
+      # libisobit.so/libisobit.dylib).
+      - name: Assemble NuGet package layout
+        shell: bash
+        run: |
+          mkdir -p nuget/runtimes/win-x64/native nuget/runtimes/linux-x64/native \
+                    nuget/runtimes/linux-arm64/native nuget/runtimes/osx-arm64/native \
+                    nuget/build/native/include/isobit
+          cp artifacts/native-win-x64/isobit.dll nuget/runtimes/win-x64/native/
+          cp artifacts/native-linux-x64/libisobit.so nuget/runtimes/linux-x64/native/
+          cp artifacts/native-linux-arm64/libisobit.so nuget/runtimes/linux-arm64/native/
+          cp artifacts/native-osx-arm64/libisobit.dylib nuget/runtimes/osx-arm64/native/
+          cp include/isobit/isobit.h nuget/build/native/include/isobit/
+          cat > nuget/Isobit.csproj <<EOF
+          <Project Sdk="Microsoft.NET.Sdk">
+            <PropertyGroup>
+              <TargetFramework>netstandard2.0</TargetFramework>
+              <IncludeBuildOutput>false</IncludeBuildOutput>
+              <NoWarn>NU5128;NU5127</NoWarn>
+              <PackageId>Isobit</PackageId>
+              <Version>${{ steps.ver.outputs.version }}</Version>
+              <Authors>Felix Middelhoff</Authors>
+              <Description>Cross-platform bit-exact math library. Same input, same bits, every platform. Correctly-rounded libm (CORE-MATH) via a C ABI, prebuilt for win-x64/linux-x64/linux-arm64/osx-arm64.</Description>
+              <PackageLicenseExpression>MIT</PackageLicenseExpression>
+              <RepositoryUrl>https://github.com/FelixMiddelhoff/isobit</RepositoryUrl>
+              <PackageProjectUrl>https://github.com/FelixMiddelhoff/isobit</PackageProjectUrl>
+              <PackageTags>native;interop;math;libm;deterministic;cross-platform</PackageTags>
+            </PropertyGroup>
+            <ItemGroup>
+              <None Include="runtimes/**" Pack="true" PackagePath="runtimes" />
+              <None Include="build/native/include/isobit/isobit.h" Pack="true" PackagePath="build/native/include/isobit/isobit.h" />
+            </ItemGroup>
+          </Project>
+          EOF
+
+      - name: Pack NuGet package
+        shell: bash
+        run: |
+          cd nuget
+          dotnet pack -c Release -o ../release-assets
+
+      - name: Create GitHub Release with all assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*
+          generate_release_notes: true
+
+      - name: NuGet login (OIDC -> temp API key)
+        uses: NuGet/login@v1
+        id: nuget_login
+        with:
+          user: felixmiddelhoff
+
+      - name: Publish to NuGet
+        shell: bash
+        run: |
+          dotnet nuget push release-assets/*.nupkg \
+            --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }} \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
