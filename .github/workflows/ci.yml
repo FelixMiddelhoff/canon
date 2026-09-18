@@ -138,17 +138,24 @@ jobs:
           pattern: digest-*
           path: digests
       - name: Diff every leg's digest against the first
+        # Windows' CRT writes text-mode stdout with CRLF line endings even
+        # though the values printed are identical byte patterns — strip \r
+        # before comparing so a real bit-exact mismatch isn't masked by (or
+        # confused with) a line-ending artifact of how each OS's stdio
+        # redirects text output.
         shell: bash
         run: |
           cd digests
           first="$(ls -1 | head -1)"
           echo "Reference leg: $first"
-          cat "$first/digest.txt"
+          tr -d '\r' < "$first/digest.txt" > "$first/digest.norm.txt"
+          cat "$first/digest.norm.txt"
           status=0
           for d in */; do
             d="${d%/}"
             if [ "$d" = "$first" ]; then continue; fi
-            if ! diff -u "$first/digest.txt" "$d/digest.txt"; then
+            tr -d '\r' < "$d/digest.txt" > "$d/digest.norm.txt"
+            if ! diff -u "$first/digest.norm.txt" "$d/digest.norm.txt"; then
               echo "::error::bit-exact mismatch: $d differs from $first"
               status=1
             fi
