@@ -84,6 +84,10 @@ Both are built by [`.github/workflows/release.yml`](.github/workflows/release.ym
 from the same source every tagged release — no separately-maintained
 build.
 
+## Nuget
+
+You can find it on https://www.nuget.org/packages/Isobit/
+
 ## Building from source
 
 ```bash
