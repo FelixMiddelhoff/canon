@@ -87,6 +87,7 @@ jobs:
     permissions:
       contents: write   # create the GitHub Release and upload assets
       id-token: write   # OIDC token for NuGet Trusted Publishing
+      packages: write   # publish to GitHub Packages (repo sidebar listing)
     steps:
       - uses: actions/checkout@v7
       - name: Download all native binaries
@@ -188,4 +189,14 @@ jobs:
           dotnet nuget push release-assets/*.nupkg \
             --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }} \
             --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+
+      # Mirror to GitHub Packages so the package shows in the repo's
+      # "Packages" sidebar (nuget.org packages are never listed there).
+      - name: Publish to GitHub Packages
+        shell: bash
+        run: |
+          dotnet nuget push release-assets/*.nupkg \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --source https://nuget.pkg.github.com/FelixMiddelhoff/index.json \
             --skip-duplicate
