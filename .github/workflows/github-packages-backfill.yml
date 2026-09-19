@@ -1,0 +1,31 @@
+name: github-packages-backfill
+# Manually mirror an already-published nuget.org version to GitHub Packages
+# (the repo's "Packages" sidebar) without cutting a new tag/release.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Isobit version already on nuget.org (e.g. 1.0.1)'
+        required: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download nupkg from nuget.org
+        shell: bash
+        run: |
+          v="${{ inputs.version }}"
+          curl -fsSL -o "Isobit.$v.nupkg" \
+            "https://api.nuget.org/v3-flatcontainer/isobit/$v/isobit.$v.nupkg"
+          ls -la
+      - name: Publish to GitHub Packages
+        shell: bash
+        run: |
+          dotnet nuget push "Isobit.${{ inputs.version }}.nupkg" \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --source https://nuget.pkg.github.com/FelixMiddelhoff/index.json \
+            --skip-duplicate
